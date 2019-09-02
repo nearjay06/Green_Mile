@@ -1,0 +1,55 @@
+body{
+    
+    background-image: url(../static/parcel.jpeg); 
+    background-repeat: no-repeat;
+    background-size: cover; 
+    text-align: center;
+    font-size: 30px;
+    color: white;
+
+}
+
+.base{
+    padding: 10px;
+    font-size: 20px;
+
+}
+
+.base a{
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+}
+
+h1{
+    margin-top:3px;
+}
+
+#sign{
+    margin-left: 40%;
+    background-color: rgb(40, 119, 73);
+    border-radius: 7px;
+    width: 350px;
+    height: 440px;
+    color: azure;
+    font-size: 17px;
+    padding:3px;
+    text-align: center;
+    opacity: 0.9;
+}
+p{
+    padding-left: 3px;
+}
+
+#login{
+    margin-left: 40%;
+    background-color: rgb(40, 119, 73);
+    border-radius: 7px;
+    width: 350px;
+    height: 230px;
+    color: azure;
+    font-size: 17px;
+    padding:3px;
+    text-align: center;
+    opacity: 0.9;
+}

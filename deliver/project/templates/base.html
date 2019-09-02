@@ -1,17 +1,21 @@
 <html>
     <head> 
         {% if title %}
-        <title>{{title}} - Microblog</title>
+        <title>{{title}} - Green Mile</title>
         {% else %}
-        <title> Welcome to Microblog </title>
+        <title> Welcome to Green Mile </title>
         {% endif %}
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    
     </head>
 
     <body>
-        <div>Microblog:<a href = "{{url_for('index')}}"> Home</a>
-            <a href="{{url_for('login')}}">Login</a>
-        
+        <div class="base">Green Mile<a href = "{{url_for('index')}}"> Home</a>
+            <a href = "{{url_for('signup')}}"> Signup</a>
+            <a href="{{url_for('login')}}">Signin</a>
         </div>
+
+        
         <hr>
          {% with messages=get_flashed_messages()%}
         {% if messages %}
@@ -20,7 +24,7 @@
             <li>{{ message }}</li>
             {% endfor %}
 
-    </ul>
+       </ul>
         {% endif %}
         {% endwith %}
         {% block content %}{% endblock %}
