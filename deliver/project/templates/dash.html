@@ -19,6 +19,24 @@
         <hr>
 
         <h1> My Dashboard</h1>
+
+
+        <div class="info">
+            <label>Date:</label>
+            <input type="text" placeholder="Date"></input>
+            <label>Time:</label>
+            <input type="text" placeholder="Time"></input>
+            <label>Pickup Location:</label>
+            <input type="text" placeholder="Pickup"></input>
+            <label>Destination:</label>
+            <input type="text" placeholder="Destination"></input>
+        </div>
+        
+        <div class="track">
+        <p>Track your Package</p>
+        <img src="../static/distance.jpg" alt="" srcset="">
+        </div>
+
          {% with messages=get_flashed_messages()%}
         {% if messages %}
         <ul>
@@ -27,6 +45,7 @@
             {% endfor %}
 
        </ul>
+
         {% endif %}
         {% endwith %}
         {% block content %}{% endblock %}
