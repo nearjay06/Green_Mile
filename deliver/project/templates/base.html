@@ -13,9 +13,9 @@
         <div class="base">Green Mile Company:<a href = "{{url_for('index')}}"> Home</a>
             <a href = "{{url_for('signup')}}"> Signup</a>
             <a href="{{url_for('login')}}">Signin</a>
+            
         </div>
 
-        
         <hr>
          {% with messages=get_flashed_messages()%}
         {% if messages %}

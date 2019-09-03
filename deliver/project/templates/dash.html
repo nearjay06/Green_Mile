@@ -1,10 +1,34 @@
-{% extends "base.html" %}
-{% block content %}
-<h1>My Dashboard</h1>
+<html>
+    <head> 
+        {% if title %}
+        <title>{{title}} - Green Mile</title>
+        {% else %}
+        <title> Welcome to Green Mile </title>
+        {% endif %}
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    
+    </head>
 
+    <body>
+        <div class="base">Green Mile Company:<a href = "{{url_for('index')}}"> Home</a>
+            <a href = "{{url_for('dash')}}"> Dashboard</a>
+            <a href="{{url_for('logout')}}">Log Out</a>
+            
+        </div>
 
+        <hr>
 
+        <h1> My Dashboard</h1>
+         {% with messages=get_flashed_messages()%}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
 
-
-
-{% endblock %}
+       </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
+</html>
