@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Sign In</h1>
-<form action="dash" method="post" novalidate id="login">
+<h1>Admin Login</h1>
+<form action="admin" method="post" novalidate id="login">
     {{form.hidden_tag()}}
-    <p>{{form.username.label}} <br>
-    {{form.username(size=32)}} <br>
-    {% for error in form.username.errors %}
+    <p>{{form.Adminusername.label}} <br>
+    {{form.Adminusername(size=32)}} <br>
+    {% for error in form.Adminusername.errors %}
     <span style="color:red;">[{{error}}]</span>
     {% endfor %}
     </p>
@@ -18,8 +18,7 @@
     </p>
     <p>{{form.remember_me()}} {{form.remember_me.label}}</p>
     <p>{{form.submit()}}</p>
-    <div class="new">      
-    <p>New User? <a href="{{ url_for('signup') }}">Click to Signup!</a></p> </div>
+     
     
 
 </form>

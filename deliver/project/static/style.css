@@ -54,11 +54,47 @@ p{
     opacity: 0.9;
 }
 
+#login input{
+    padding:4px;
+    border-radius:3px;
+}
+
 .info label{
-    font-size:16px;
+    font-size:15px;
+    padding:8px;
     }
 
-.info input{
-    border-radius:8px;
-    padding:5px;
+.info{
+  font-family:georgia;
+  font-size:15px;
+  font-weight:bold;
+  padding-left:20px;
+  
 }
+
+.info input{
+    padding:8px;
+    width: 20%;
+    border-radius:10px;
+}
+
+.track{
+    padding-right:100px;
+}
+.track p{
+    margin-top:5px;
+    font-size:20px;
+}
+
+.new a{
+    color:maroon;
+    text-decoration: none;
+}
+
+/* #sig li:hover{
+    display: none;
+}
+
+#sig li:hover{
+    display: block;
+} */

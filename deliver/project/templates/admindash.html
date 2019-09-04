@@ -3,7 +3,7 @@
         {% if title %}
         <title>{{title}} - Green Mile</title>
         {% else %}
-        <title> Welcome to Green Mile </title>
+        <title> AdminPage </title>
         {% endif %}
         <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     
@@ -11,26 +11,25 @@
 
     <body>
         <div class="base">Green Mile Company:<a href = "{{url_for('index')}}"> Home</a>
-            <a href = "{{url_for('signup')}}"> Signup</a>
-          {% if current_user.is_anonymous %}
-            <a href = "{{url_for('login')}}"> Signin  </a>
-                <!-- <ul id="sig">
-                    <li><a>admin</a></li>
-                    <li><a>user</a></li>
-                </ul> -->
+            <a href = "{{url_for('dash')}}"> Dashboard</a>
+            <a href = "{{url_for('admin')}}"> Admin Dashboard</a>
 
-                <!-- <select>
-                    <option value="volvo">admin</option>
-                    <option value="saab">user</option>
-                    
-                  </select> -->
-           
-            {% else %}
             <a href="{{url_for('logout')}}">Log Out</a>
-            {% endif %}
+            
         </div>
+
         <hr>
-        {% with messages=get_flashed_messages()%}
+
+        <div class="role">
+            <label>Date:</label> <br>
+            <input type="number" placeholder="Date"></input> <br>
+            <label>Time:</label><br>
+            <input type="number" placeholder="Time"></input><br>
+            
+        </div>
+                
+
+         {% with messages=get_flashed_messages()%}
         {% if messages %}
         <ul>
             {% for message in messages %}
@@ -38,6 +37,7 @@
             {% endfor %}
 
        </ul>
+
         {% endif %}
         {% endwith %}
         {% block content %}{% endblock %}
