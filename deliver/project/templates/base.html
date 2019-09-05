@@ -14,16 +14,8 @@
             <a href = "{{url_for('signup')}}"> Signup</a>
           {% if current_user.is_anonymous %}
             <a href = "{{url_for('login')}}"> Signin  </a>
-                <!-- <ul id="sig">
-                    <li><a>admin</a></li>
-                    <li><a>user</a></li>
-                </ul> -->
-
-                <!-- <select>
-                    <option value="volvo">admin</option>
-                    <option value="saab">user</option>
-                    
-                  </select> -->
+            <a href = "{{url_for('adminlogin')}}"> Admin</a>
+            
            
             {% else %}
             <a href="{{url_for('logout')}}">Log Out</a>

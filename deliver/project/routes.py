@@ -5,6 +5,7 @@ from project.forms import LoginForm, SignupForm, AdminForm
 from werkzeug.urls import url_parse
 from project import db
 from project.forms import RegistrationForm
+from project.models import User, Admin
               
 
 @app.route('/hello') 
@@ -30,16 +31,25 @@ def index():
 def signup():
     form= SignupForm()
     if form.validate_on_submit():
-        # flash('Signup requested for user {}, remember_me={}'.format(
-        #     form.username.data, form.remember_me.data))
-        return redirect(url_for('login'))
+       return redirect(url_for('login'))
     return render_template('signup.html', title='Sign Up', form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    # form = LoginForm()
+    # error=None
+    # if request.method == 'POST':
+    #     if request.form['username'] != 'user' or \
+    #             request.form['password'] != 'password':
+    #         error = 'Invalid username or password'
+    #     else:
+    #         flash('Successfully signed in')
+    #         return redirect(url_for('dash'))
+    # return render_template('login.html', error=error,form=form)
+
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('dash'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -87,9 +97,9 @@ def adminlogin():
         admin = Admin.query.filter_by(Adminusername=form.Adminusername.data).first()
         if admin is None or not admin.check_password(form.password.data):
             flash('Invalid username or password')
-            return redirect(url_for('adminlogin'))
+        return redirect(url_for('adminlogin'))
     return render_template('adminlogin.html', title=' AdminSign In', form=form)
-
+    
 
 
 
