@@ -70,6 +70,7 @@ p{
   font-weight:bold;
   padding-left:20px;
   
+  
 }
 
 .info input{
@@ -79,7 +80,7 @@ p{
 }
 
 .track{
-    padding-right:100px;
+    padding-right:10px;
 }
 .track p{
     margin-top:5px;
