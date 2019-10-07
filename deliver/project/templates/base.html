@@ -10,16 +10,19 @@
     </head>
 
     <body>
-        <div class="base">Green Mile Company:<a href = "{{url_for('index')}}"> Home</a>
-            <a href = "{{url_for('signup')}}"> Signup</a>
-          {% if current_user.is_anonymous %}
-            <a href = "{{url_for('login')}}"> Signin  </a>
-            <a href = "{{url_for('adminlogin')}}"> Admin</a>
-            
-           
-            {% else %}
-            <a href="{{url_for('logout')}}">Log Out</a>
-            {% endif %}
+        <div class="base">
+            <div class="green"><a href = "{{url_for('index')}}">Green Mile Company</a></div>
+
+            <div class="menu"><a href = "{{url_for('index')}}"> Home</a>
+                <a href = "{{url_for('signup')}}"> Signup</a>
+              {% if current_user.is_anonymous %}
+                <a href = "{{url_for('login')}}"> Signin  </a>
+                <a href = "{{url_for('adminlogin')}}"> Admin</a>
+                
+                {% else %}
+                <a href="{{url_for('logout')}}">Log Out</a>
+                {% endif %}
+            </div>
         </div>
         <hr>
         {% with messages=get_flashed_messages()%}

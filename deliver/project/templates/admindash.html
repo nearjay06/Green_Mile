@@ -10,11 +10,15 @@
     </head>
 
     <body>
-        <div class="base">Green Mile Company:<a href = "{{url_for('index')}}"> Home</a>
+        <div class="base">
+            <div class="green"><a href = "{{url_for('index')}}">Green Mile Company</a></div>
+            <div class="adminmenu">
+            <a href = "{{url_for('index')}}"> Home</a>
             <a href = "{{url_for('dash')}}"> Dashboard</a>
             <a href = "{{url_for('admin')}}"> Admin Dashboard</a>
 
             <a href="{{url_for('logout')}}">Log Out</a>
+            </div>
             
         </div>
 

@@ -9,20 +9,43 @@ body{
 
 }
 
-.base{
-    padding: 10px;
-    font-size: 20px;
 
+.base{
+    
+    width:100%;
+    display: flex;
+}
+.green{
+    width: 30%;
+    
 }
 
-.base a{
+.menu{
+    width:30%;
+    padding: 10px;
+    font-size: 20px;
+    margin-left: 500px;
+    
+}
+
+.menu a, .green a, .adminmenu a{
     color: white;
     text-decoration: none;
     padding: 5px;
 }
 
+.adminmenu{
+    width:30%;
+    padding: 10px;
+    font-size: 20px;
+    margin-left: 350px;
+}
+
+
+
 h1{
-    margin-top:3px;
+    margin-top:5px;
+    text-align:center;
 }
 
 #sign{
@@ -37,26 +60,26 @@ h1{
     text-align: center;
     opacity: 0.9;
 }
-p{
-    padding-left: 3px;
-}
+
 
 #login{
-    margin-left: 40%;
     background-color: rgb(40, 119, 73);
     border-radius: 7px;
-    width: 350px;
-    height: 262px;
+    height: 265px;
     color: azure;
     font-size: 17px;
-    padding:3px;
     text-align: center;
     opacity: 0.9;
+    width:65%;
+    margin-left:15%;
+    padding-top:10px;
 }
 
 #login input{
     padding:4px;
     border-radius:3px;
+    border: 1px solid orange;
+    
 }
 
 .info label{
@@ -68,7 +91,8 @@ p{
   font-family:georgia;
   font-size:15px;
   font-weight:bold;
-  padding-left:20px;
+  padding-left:400px;
+  margin-left: 7%;
   
   
 }
@@ -85,6 +109,11 @@ p{
 .track p{
     margin-top:5px;
     font-size:20px;
+}
+
+.track img{
+    border-radius:10px;
+    padding-left: 200px;
 }
 
 .new a{
