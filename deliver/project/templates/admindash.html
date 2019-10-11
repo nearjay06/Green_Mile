@@ -14,8 +14,9 @@
             <div class="green"> <a href = "{{url_for('index')}}">Green Mile Company</a> </div>
             <div class="adminmenu">
             <a href = "{{url_for('index')}}"> Home</a>
-            <a href="{{url_for('users')}}"> Users </a>
-            <a href="{{url_for('suppliers')}}"> Suppliers    </a>
+            <a href="{{url_for('signup')}}"> Register Users </a>
+            <a href="{{url_for('users')}}"> Recepients </a>
+            <a href="{{url_for('suppliers')}}"> Suppliers</a>
             <a href="{{url_for('loaders')}}"> Loaders </a>
             <a href = "{{url_for('dash')}}"> Dashboard</a>
             <a href = "{{url_for('admin')}}"> Admin Dashboard</a>
@@ -30,7 +31,7 @@
                        
         <div class="role">
             
-                    <a href="{{url_for('users')}}"> View Users </a> <br>
+                    <a href="{{url_for('users')}}"> View Recepients </a> <br>
                     <a href="{{url_for('suppliers')}}"> View Suppliers</a> <br>
                     <a href="{{url_for('loaders')}}"> View Loaders </a> <br>
             

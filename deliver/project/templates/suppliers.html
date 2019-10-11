@@ -1,5 +1,41 @@
-{% extends "base.html" %}
 {% block content %} 
+<html>
+    <head> 
+        {% if title %}
+        <title>{{title}} - Green Mile</title>
+        {% else %}
+        <title> Suppliers Page </title>
+        {% endif %}
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    
+    </head>
+
+    <body>
+        <div class="base">
+            <div class="green"> <a href = "{{url_for('index')}}">Green Mile Company</a> </div>
+            <div class="adminmenu">
+            <a href = "{{url_for('index')}}"> Home</a>
+             <a href="{{url_for('suppliers')}}"> Suppliers</a>
+            <a href = "{{url_for('dash')}}"> Dashboard</a>
+            <a href="{{url_for('logout')}}">Log Out</a>
+            </div>
+            
+        </div>
+
+        <hr>
+                           
+
+         {% with messages=get_flashed_messages()%}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+
+       </ul>
+
+        {% endif %}
+        {% endwith %}
 
  <h1>Suppliers</h1>
 <table >
@@ -24,3 +60,8 @@
     {% endfor %}
 </table>
 {% endblock  %}
+
+
+
+</body>
+</html>

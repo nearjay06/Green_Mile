@@ -1,6 +1,42 @@
-{% extends "base.html" %}
 {% block content %}
-<h1>Sign Up</h1>
+<html>
+    <head> 
+        {% if title %}
+        <title>{{title}} - Green Mile</title>
+        {% else %}
+        <title> Signup Page </title>
+        {% endif %}
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    
+    </head>
+
+    <body>
+        <div class="base">
+            <div class="green"> <a href = "{{url_for('index')}}">Green Mile Company</a> </div>
+            <div class="adminmenu">
+            <a href = "{{url_for('index')}}"> Home</a>
+             <a href="{{url_for('signup')}}"> Register Users</a>
+            <a href = "{{url_for('admin')}}"> Admin Dashboard</a>
+            <a href="{{url_for('logout')}}">Log Out</a>
+            </div>
+            
+        </div>
+
+        <hr>
+                           
+
+         {% with messages=get_flashed_messages()%}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+
+       </ul>
+
+        {% endif %}
+        {% endwith %}
+<h1>Create User</h1>
 <form  method="post" id="sign">
     {{form.hidden_tag()}}
     <p>{{form.firstname.label}} <br>
@@ -50,5 +86,6 @@
     </form>
 {% endblock %}
 
-
+    </body>
+</html>
 
