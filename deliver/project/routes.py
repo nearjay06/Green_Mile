@@ -8,7 +8,6 @@ from project.models import User, Admin
 from config import Config
 
 
-from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re

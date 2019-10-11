@@ -48,7 +48,7 @@ h1{
 }
 
 #sign{
-    margin-left: 40%;
+    margin-left: 35%;
     background-color: rgb(40, 119, 73);
     border-radius: 7px;
     width: 400px;
@@ -58,6 +58,7 @@ h1{
     padding:3px;
     text-align: center;
     opacity: 0.9;
+    
 }
 
 #sign input{
@@ -94,31 +95,35 @@ h1{
 
 .info{
   font-family:georgia;
-  font-size:15px;
+  font-size:16px;
   font-weight:bold;
-  padding-left:400px;
-  margin-left: 7%;
+  margin-left: -66%;
   
-  
-}
+ }
 
 .info input{
     padding:8px;
-    width: 20%;
+    width: 18%;
     border-radius:10px;
+    
 }
 
+
 .track{
-    padding-right:10px;
-}
-.track p{
+    padding-left:34%;
+    margin-top:-250px; 
+    font-size:20px;
+    font-weight:bolder;
+    font-family:cambria;
+} 
+/* .track p{
     margin-top:5px;
     font-size:20px;
-}
+} */
 
 .track img{
     border-radius:10px;
-    padding-left: 200px;
+    
 }
 
 .new a{
