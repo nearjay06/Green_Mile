@@ -7,11 +7,10 @@ from project import db
 from project.models import User, Admin
 from config import Config
 
-
+# from wtforms import Form, BooleanField, StringField, PasswordField, validators
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
-
 
 app.secret_key = 'my secret key'
 app.config['MYSQL_HOST'] = 'localhost'
@@ -31,7 +30,6 @@ def hello():
 
 @app.route('/')
 @app.route('/index')
-# @login_required
 def index():
     user = {'username': 'Client'}
     posts = [
@@ -46,11 +44,16 @@ def index():
   
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    form= SignupForm()
-    if form.validate_on_submit():
-       return redirect(url_for('login'))
+    form = SignupForm()
+    if request.method == 'POST' and form.validate():
+        user = User(form.firstname.data,form.lastname.data,form.username.data, form.email.data,
+                    form.password.data,form.confirmpassword.data)
+        db_session.add(user)
+        flash('Thanks for signing up')
+        return redirect(url_for('login'))
     return render_template('signup.html', title='Sign Up', form=form)
-    # form = SignupForm()
+
+    # user = User.query.filter_by(username=form.username.data).first()
     # msg = ''
     # if request.method == 'POST' and 'firstname' in request.form and 'lastname' in request.form and 'username' in request.form and 'email' in request.form and 'password' in request.form  and 'confirmpassword' in request.form:
         
@@ -61,9 +64,9 @@ def signup():
     #     password = request.form['password']
     #     confirmpassword = request.form['password']
     #     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    #     cursor.execute('SELECT * FROM users WHERE username = %s', (username))
+    #     cursor.execute('SELECT * FROM users WHERE username = %s AND firstname = %s AND lastname = %s AND email = %s AND password= %s AND confirmpassword = %s', (username, firstname,lastname,password,confirmpassword))
     #     users = cursor.fetchone()
-    # elif request.method == 'POST':
+    # elif request.method == 'GET':
     #     msg = 'Please first signup!'
     #     if users:
     #         msg = 'Account already exists!'
@@ -74,7 +77,7 @@ def signup():
     #     elif not username or not password or not email:
     #         msg = 'Some details may be missing'
     #     else:
-    #         cursor.execute('INSERT INTO accounts VALUES (NULL, %s, %s, %s, %s, %s, %s)', (firstname,lastname,username, email,password, confirmpassword))
+    #         cursor.execute('INSERT INTO users VALUES (NULL, %s, %s, %s, %s, %s, %s)', (firstname,lastname,username, email,password, confirmpassword))
     #         mysql.connection.commit()
     #         msg = 'Successfully signedup'
     
@@ -83,40 +86,25 @@ def signup():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-
     form = LoginForm()
-    if form.validate_on_submit():
-       return redirect(url_for('dash'))
-    return render_template('login.html', title='Sign In', form=form)
-    # form = LoginForm()
-    # msg = ''
-    # if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-    #     username = request.form['username']
-    #     password = request.form['password']
-    #     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    #     cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s', (username, password))
-    #     users = cursor.fetchone()
-    #     if users:
-    #         session['loggedin'] = True
-    #         session['id'] = users['id']
-    #         session['username'] = users['username']
-    #         return 'Logged in successfully!'
-    #     else:
-    #       msg = 'Incorrect username or password!'
-    #     return redirect(url_for('dash'))
-    # return render_template('login.html', title='Sign In', form=form, msg=msg)
+    msg = ''
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        username = request.form['username']
+        password = request.form['password']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM users WHERE username = %s AND password1 = %s', (username, password))
+        users = cursor.fetchone()
+        if users:
+            session['loggedin'] = True
+            session['id'] = users['id']
+            session['username'] = users['username']
+            return 'Signed in successfully!'
+        else:
+          msg = 'Incorrect username or password!'
+        return redirect(url_for('dash'))
+    return render_template('login.html', title='Sign In', form=form, msg=msg)
 
-    # form = LoginForm()
-    # if form.validate_on_submit():
-    #     user = User.query.filter_by(username=form.username.data).first()
-    #     if user is None or not user.check_password(form.password.data):
-    #         flash('Invalid username or password')
-    #         return redirect(url_for('login'))
-    #     else:
-    #         flash('Successfully signed in')
-    #     return redirect(url_for('dash'))
-    # return render_template('login.html', title='Sign In', form=form)
-
+    
 @app.route('/dash', methods=['GET', 'POST'])
 def dash():
     return render_template('dash.html', title='Dash') 
@@ -192,8 +180,6 @@ def loaders():
         return render_template('loaders.html', loaders=loaders,title='Loaders') 
     except Exception as e:
         return (str(e))
-
-
 
 
 
