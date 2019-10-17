@@ -9,7 +9,6 @@ body{
 
 }
 
-
 .base{
     
     width:100%;
@@ -41,25 +40,24 @@ body{
     margin-left: 300px;
 }
 
-
 h1{
     margin-top:5px;
     text-align:center;
 }
 
 #sign{
-    margin-left: 35%;
+    margin-left: 10%;
     background-color: rgb(40, 119, 73);
     border-radius: 7px;
     width: 400px;
-    height: 450px;
+    height: 350px; 
     color: azure;
     font-size: 17px;
     padding:3px;
     text-align: center;
     opacity: 0.9;
     
-}
+ }
 
 #sign input{
     padding:4px;
@@ -67,6 +65,27 @@ h1{
     border: 1px solid orange;
 }
 
+#create{
+    margin-top:-29%;
+    margin-left: 45%;
+    background-color: rgb(40, 119, 73);
+    border-radius: 7px;
+    width: 400px;
+    height: 350px;
+    color: azure;
+    font-size: 17px;
+    padding:3px;
+    text-align: center;
+    opacity: 0.9;
+
+}
+
+#create input{
+    padding:4px;
+    border-radius:3px;
+    border: 1px solid orange;
+
+}
 
 #login{
     background-color: rgb(40, 119, 73);

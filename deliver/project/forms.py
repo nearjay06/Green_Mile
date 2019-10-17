@@ -14,10 +14,11 @@ class SignupForm(FlaskForm):
     lastname = StringField('Lastname', validators=[DataRequired()])
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired()])
+    role = StringField('Role', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirmpassword = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     remember_me = BooleanField('Remember Me')
-    submit= SubmitField('Sign Up')
+    submit= SubmitField('Register User')
 
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()

@@ -1,28 +1,15 @@
 from flask import render_template,flash, redirect, url_for, request, Flask, session
 from flask_login import current_user, login_user, logout_user, login_required
-from project import app
+from project import app, db
 from project.forms import LoginForm,SignupForm, AdminForm
 from werkzeug.urls import url_parse
-from project import db
-from project.models import User, Admin
-from config import Config
-
-# from wtforms import Form, BooleanField, StringField, PasswordField, validators
-from flask_mysqldb import MySQL
-import MySQLdb.cursors
+# from project.models import User, Admin 
+from wtforms import Form, BooleanField, StringField, PasswordField, validators
 import re
-
-app.secret_key = 'my secret key'
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'newuser'
-app.config['MYSQL_PASSWORD'] = 'apples'
-app.config['MYSQL_DB'] = 'greenmile'
-app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
-
-# app.config['SQLAlchemy_DATABASE_URI'] = "mysql://newuser:apples@localhost/greenmile"
-
-
-mysql = MySQL(app)
+import psycopg2
+from  usermodels import UserModels
+from database import DatabaseConnection
+database_connection = DatabaseConnection() 
 
 @app.route('/hello') 
 def hello():
@@ -42,30 +29,53 @@ def index():
     ]
     return render_template('index.html', title='Home Page', user=user,posts=posts)
   
-@app.route('/signup', methods=['GET', 'POST'])
+@app.route('/signup', methods=['GET','POST']) 
 def signup():
     form = SignupForm()
-    if request.method == 'POST' and form.validate():
-        user = User(form.firstname.data,form.lastname.data,form.username.data, form.email.data,
-                    form.password.data,form.confirmpassword.data)
-        db_session.add(user)
-        flash('Thanks for signing up')
-        return redirect(url_for('login'))
-    return render_template('signup.html', title='Sign Up', form=form)
-
-    # user = User.query.filter_by(username=form.username.data).first()
-    # msg = ''
-    # if request.method == 'POST' and 'firstname' in request.form and 'lastname' in request.form and 'username' in request.form and 'email' in request.form and 'password' in request.form  and 'confirmpassword' in request.form:
+    msg = ''
         
-    #     firstname = request.form['firstname']
-    #     lastname = request.form['lastname']
-    #     username = request.form['username']
-    #     email = request.form['email']
-    #     password = request.form['password']
-    #     confirmpassword = request.form['password']
-    #     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    #     cursor.execute('SELECT * FROM users WHERE username = %s AND firstname = %s AND lastname = %s AND email = %s AND password= %s AND confirmpassword = %s', (username, firstname,lastname,password,confirmpassword))
-    #     users = cursor.fetchone()
+    if request.method == 'POST' and 'firstname' in request.form and 'lastname' in request.form and 'username' in request.form and 'email' in request.form and 'role' in request.form and 'password' in request.form  and 'confirmpassword' in request.form:
+        firstname = request.form['firstname']
+        lastname = request.form['lastname']
+        username = request.form['username']
+        email = request.form['email']
+        role = request.form['role']
+        password = request.form['password']
+        confirmpassword = request.form['confirmpassword'] 
+        
+        register_user = UserModels.insert_users(firstname,lastname,username,email,role,password)
+        if register_user:
+            # session['loggedin'] = True
+            # session['id'] = users['id']
+            # session['firstname'] = users['firstname']
+            # session['lastname'] = users['lastname']
+            # session['username'] = users['username']
+            # session['email'] = users['email']
+            # session['role']=users['role']
+            # session['password'] = users['password']
+            # session['confirmpassword'] = users['confirmpassword']
+            # msg = 'Registered successfully!'
+            return redirect(url_for('admin'))
+        # if users:
+        #     msg = 'Account already exists!'
+        # elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+        #     msg = 'Invalid email address!'
+        # elif not re.match(r'[A-Za-z0-9]+', username):
+        #     msg = 'Username must contain only characters and numbers!'
+        # elif not username or not password or not email:
+        #     msg = 'Some details may be missing'
+        # else:
+           
+        #     msg = 'Successfully signedup'     
+    # elif request.method == 'POST':
+    #     msg = 'Please signup first!'
+    #     return redirect(url_for('login')) 
+        else:
+            msg = 'Please sign up first!'
+            return redirect(url_for('signup'))      
+    
+    return render_template('signup.html',title='Sign Up', form=form, msg=msg, users = users) 
+
     # elif request.method == 'GET':
     #     msg = 'Please first signup!'
     #     if users:
@@ -76,13 +86,7 @@ def signup():
     #         msg = 'Username must contain only characters and numbers!'
     #     elif not username or not password or not email:
     #         msg = 'Some details may be missing'
-    #     else:
-    #         cursor.execute('INSERT INTO users VALUES (NULL, %s, %s, %s, %s, %s, %s)', (firstname,lastname,username, email,password, confirmpassword))
-    #         mysql.connection.commit()
-    #         msg = 'Successfully signedup'
-    
     # return render_template('signup.html',title='Sign Up', msg=msg)
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -91,20 +95,20 @@ def login():
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
         password = request.form['password']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM users WHERE username = %s AND password1 = %s', (username, password))
-        users = cursor.fetchone()
-        if users:
+        
+        login_users = UserModels.login_users(username, password) 
+        if login_users:
             session['loggedin'] = True
-            session['id'] = users['id']
-            session['username'] = users['username']
-            return 'Signed in successfully!'
+            # session['id'] = users['id']
+            # session['username'] = users['username']
+            # session['password'] = users['password'] 
+            # return 'Signed in successfully!'
         else:
           msg = 'Incorrect username or password!'
         return redirect(url_for('dash'))
     return render_template('login.html', title='Sign In', form=form, msg=msg)
 
-    
+
 @app.route('/dash', methods=['GET', 'POST'])
 def dash():
     return render_template('dash.html', title='Dash') 
@@ -113,6 +117,14 @@ def dash():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+# @app.route('/logout')
+# def logout():
+#     session.pop('loggedin', None)
+#     session.pop('id', None)
+#     session.pop('username', None)
+#    return redirect(url_for('login'))
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -146,7 +158,11 @@ def adminlogin():
 @app.route('/users', methods=['GET', 'POST'])
 def users():
     try:
-        cur = mysql.connection.cursor()
+        connection = psycopg2.connect(
+                "dbname='greenmile_database' user='postgres' host='localhost'  port= '5432'"
+            )
+        cursor = connection.cursor(cursor_factory=RealDictCursor)    
+        # cur = mysql.connection.cursor()
         query = "SELECT * from users"
         cur.execute(query)
         userDetails = cur.fetchall()
@@ -159,7 +175,11 @@ def users():
 @app.route('/suppliers', methods=['GET', 'POST'])
 def suppliers():
     try:
-        cur = mysql.connection.cursor()
+        connection = psycopg2.connect(
+                "dbname='greenmile_database' user='postgres' host='localhost'  port= '5432'"
+            )
+        cursor = connection.cursor(cursor_factory=RealDictCursor)    
+        # cur = mysql.connection.cursor()
         query = "SELECT * from suppliers"
         cur.execute(query)
         suppliers = cur.fetchall()
@@ -172,7 +192,11 @@ def suppliers():
 @app.route('/loaders', methods=['GET', 'POST'])
 def loaders():
     try:
-        cur = mysql.connection.cursor()
+        connection = psycopg2.connect(
+                "dbname='greenmile_database' user='postgres' host='localhost'  port= '5432'"
+            )
+        cursor = connection.cursor(cursor_factory=RealDictCursor)    
+        # cur = mysql.connection.cursor()
         query = "SELECT * from loaders"
         cur.execute(query)
         loaders = cur.fetchall()

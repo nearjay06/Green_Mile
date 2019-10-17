@@ -24,8 +24,7 @@
 
         <hr>
                            
-
-         {% with messages=get_flashed_messages()%}
+        {% with messages=get_flashed_messages()%}
         {% if messages %}
         <ul>
             {% for message in messages %}
@@ -37,6 +36,7 @@
         {% endif %}
         {% endwith %}
 <h1>Create User</h1>
+
 <form  method="post" id="sign">
     {{form.hidden_tag()}}
     <p>{{form.firstname.label}} <br>
@@ -46,13 +46,6 @@
         {% endfor %}
         </p>
 
-        <p>{{form.lastname.label}} <br>
-            {{form.lastname(size=32)}} <br>
-            {% for error in form.lastname.errors %}
-            <span style="color:red;">[{{error}}]</span>
-            {% endfor %}
-            </p>
-
     <p>{{form.username.label}} <br>
     {{form.username(size=32)}} <br>
     {% for error in form.username.errors %}
@@ -60,7 +53,26 @@
     {% endfor %}
     </p>
 
-    <p>{{form.email.label}} <br>
+    <p>
+        {{form.role.label}}<br>
+        {{form.role(size=32)}}<br>
+        {% for error in form.role.errors %}
+        <span style="color:red;">[{{error }}]</span>
+        {% endfor %}
+      </p>
+
+</form>
+
+    <form  method="post" id="create">
+        {{form.hidden_tag()}}
+
+        <p>{{form.lastname.label}} <br>
+            {{form.lastname(size=32)}} <br>
+            {% for error in form.lastname.errors %}
+            <span style="color:red;">[{{error}}]</span>
+            {% endfor %}
+            </p>
+       <p>{{form.email.label}} <br>
         {{form.email(size=32)}} <br>
         {% for error in form.email.errors %}
         <span style="color:red;">[{{error}}]</span>
@@ -84,6 +96,7 @@
     <p>{{form.remember_me()}} {{form.remember_me.label}}</p>
     <p>{{form.submit()}}</p>
     </form>
+    
 {% endblock %}
 
     </body>
