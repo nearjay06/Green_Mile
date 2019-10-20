@@ -3,10 +3,10 @@ from flask_login import current_user, login_user, logout_user, login_required
 from project import app, db
 from project.forms import LoginForm,SignupForm, AdminForm
 from werkzeug.urls import url_parse
-# from project.models import User, Admin 
 from wtforms import Form, BooleanField, StringField, PasswordField, validators
 import re
 import psycopg2
+from psycopg2.extras import RealDictCursor
 from  usermodels import UserModels
 from database import DatabaseConnection
 database_connection = DatabaseConnection() 
@@ -45,48 +45,13 @@ def signup():
         
         register_user = UserModels.insert_users(firstname,lastname,username,email,role,password)
         if register_user:
-            # session['loggedin'] = True
-            # session['id'] = users['id']
-            # session['firstname'] = users['firstname']
-            # session['lastname'] = users['lastname']
-            # session['username'] = users['username']
-            # session['email'] = users['email']
-            # session['role']=users['role']
-            # session['password'] = users['password']
-            # session['confirmpassword'] = users['confirmpassword']
-            # msg = 'Registered successfully!'
+            db.session.add(register_user)
+            db.session.commit()
             return redirect(url_for('admin'))
-        # if users:
-        #     msg = 'Account already exists!'
-        # elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-        #     msg = 'Invalid email address!'
-        # elif not re.match(r'[A-Za-z0-9]+', username):
-        #     msg = 'Username must contain only characters and numbers!'
-        # elif not username or not password or not email:
-        #     msg = 'Some details may be missing'
-        # else:
-           
-        #     msg = 'Successfully signedup'     
-    # elif request.method == 'POST':
-    #     msg = 'Please signup first!'
-    #     return redirect(url_for('login')) 
         else:
             msg = 'Please sign up first!'
             return redirect(url_for('signup'))      
-    
     return render_template('signup.html',title='Sign Up', form=form, msg=msg, users = users) 
-
-    # elif request.method == 'GET':
-    #     msg = 'Please first signup!'
-    #     if users:
-    #         msg = 'Account already exists!'
-    #     elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-    #         msg = 'Invalid email address!'
-    #     elif not re.match(r'[A-Za-z0-9]+', username):
-    #         msg = 'Username must contain only characters and numbers!'
-    #     elif not username or not password or not email:
-    #         msg = 'Some details may be missing'
-    # return render_template('signup.html',title='Sign Up', msg=msg)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -159,32 +124,29 @@ def adminlogin():
 def users():
     try:
         connection = psycopg2.connect(
-                "dbname='greenmile_database' user='postgres' host='localhost'  port= '5432'"
+                "dbname='greenmile' user='postgres' host='localhost'  port= '5432' password='123'"
             )
         cursor = connection.cursor(cursor_factory=RealDictCursor)    
-        # cur = mysql.connection.cursor()
         query = "SELECT * from users"
-        cur.execute(query)
-        userDetails = cur.fetchall()
-        cur.close()
+        cursor.execute(query)
+        userDetails = cursor.fetchall()
+        cursor.close()
         return render_template('users.html', userDetails=userDetails,title='Users') 
     except Exception as e:
         return (str(e))
-
 
 @app.route('/suppliers', methods=['GET', 'POST'])
 def suppliers():
     try:
         connection = psycopg2.connect(
-                "dbname='greenmile_database' user='postgres' host='localhost'  port= '5432'"
+                "dbname='greenmile' user='postgres' host='localhost'  port= '5432' password='123'"
             )
         cursor = connection.cursor(cursor_factory=RealDictCursor)    
-        # cur = mysql.connection.cursor()
         query = "SELECT * from suppliers"
-        cur.execute(query)
+        cursor.execute(query)
         suppliers = cur.fetchall()
-        cur.close()
-        return render_template('suppliers.html', suppliers=suppliers,title='Suppliers') 
+        cursor.close()
+        return render_template('suppliers.html', suppliers=suppliers,title='Suppliers')
     except Exception as e:
         return (str(e))
     
@@ -193,14 +155,13 @@ def suppliers():
 def loaders():
     try:
         connection = psycopg2.connect(
-                "dbname='greenmile_database' user='postgres' host='localhost'  port= '5432'"
+                "dbname='greenmile' user='postgres' host='localhost' port= '5432' password='123'"
             )
         cursor = connection.cursor(cursor_factory=RealDictCursor)    
-        # cur = mysql.connection.cursor()
         query = "SELECT * from loaders"
-        cur.execute(query)
-        loaders = cur.fetchall()
-        cur.close()
+        cursor.execute(query)
+        loaders = cursor.fetchall()
+        cursor.close()
         return render_template('loaders.html', loaders=loaders,title='Loaders') 
     except Exception as e:
         return (str(e))

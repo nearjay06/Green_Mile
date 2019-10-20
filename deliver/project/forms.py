@@ -4,19 +4,19 @@ from wtforms.validators import DataRequired, ValidationError, Email,EqualTo
 from project.models import User, Admin
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    username = StringField('Username',render_kw={"placeholder": "Username"}, validators=[DataRequired()])
+    password = PasswordField('Password', render_kw={"placeholder": "Password"}, validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit= SubmitField('Sign In')
 
 class SignupForm(FlaskForm):
-    firstname = StringField('Firstname', validators=[DataRequired()])
-    lastname = StringField('Lastname', validators=[DataRequired()])
-    username = StringField('Username', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired()])
-    role = StringField('Role', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirmpassword = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    firstname = StringField('Firstname', render_kw={"placeholder": "Firstname"}, validators=[DataRequired()])
+    lastname = StringField('Lastname', render_kw={"placeholder": "Lastname"}, validators=[DataRequired()])
+    username = StringField('Username',render_kw={"placeholder": "Username"},validators=[DataRequired()])
+    email = StringField('Email', render_kw={"placeholder": "you@example.com"},validators=[DataRequired()])
+    role = StringField('Role', render_kw={"placeholder": "Role"},validators=[DataRequired()])
+    password = PasswordField('Password',render_kw={"placeholder": "Password"}, validators=[DataRequired()])
+    confirmpassword = PasswordField('Confirm Password', render_kw={"placeholder": "Confirm Password"}, validators=[DataRequired(), EqualTo('password')])
     remember_me = BooleanField('Remember Me')
     submit= SubmitField('Register User')
 

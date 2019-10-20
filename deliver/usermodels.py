@@ -32,6 +32,27 @@ class UserModels():
         self.cursor.execute(query)
         return self.cursor.fetchall()  
 
+    
+    @staticmethod
+    def get_suppliers(self):
+    
+        query = """SELECT * FROM suppliers""" 
+        self.cursor.execute(query)
+        return self.cursor.fetchall()  
+    
+    
+    @staticmethod
+    def get_loaders(self):
+    
+        query = """SELECT * FROM loaders""" 
+        self.cursor.execute(query)
+        return self.cursor.fetchall()  
+    
+    
+    
+    
+    
+    
     @staticmethod
     def get_specific_user(self,username,password):
         
