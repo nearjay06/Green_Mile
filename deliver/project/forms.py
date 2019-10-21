@@ -10,8 +10,7 @@ class LoginForm(FlaskForm):
     submit= SubmitField('Sign In')
 
 class SignupForm(FlaskForm):
-    firstname = StringField('Firstname', render_kw={"placeholder": "Firstname"}, validators=[DataRequired()])
-    lastname = StringField('Lastname', render_kw={"placeholder": "Lastname"}, validators=[DataRequired()])
+    
     username = StringField('Username',render_kw={"placeholder": "Username"},validators=[DataRequired()])
     email = StringField('Email', render_kw={"placeholder": "you@example.com"},validators=[DataRequired()])
     role = StringField('Role', render_kw={"placeholder": "Role"},validators=[DataRequired()])

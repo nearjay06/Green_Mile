@@ -24,19 +24,18 @@ class DatabaseConnection():
        
     
     def create_table_users(self):
-      create_table_command = "CREATE TABLE IF NOT EXISTS users(user_id SERIAL PRIMARY KEY, firstname VARCHAR(20),\
-                             lastname VARCHAR(20),username VARCHAR(20),email VARCHAR(50),\
+      create_table_command = "CREATE TABLE IF NOT EXISTS users(user_id SERIAL PRIMARY KEY, \
+                             username VARCHAR(20),email VARCHAR(50),\
                              role VARCHAR(20), password VARCHAR(10))"
       self.cursor.execute(create_table_command)
     
     # def insert_users(self, firstname ,lastname , othernames,email ,phonenumber,
                     #  username,password ,registered,isAdmin):
 
-        # user = f"INSERT INTO user_data (firstname, lastname, othernames,email,\
-                # phonenumber,username,password,registered,isAdmin) VALUES('{firstname}', '{lastname}',\
-                # '{othernames}','{email}','{phonenumber}','{username}', '{password}','{registered}','{isAdmin}')\
+        # user = f"INSERT INTO user_data (email,\
+                # username,password,registered) VALUES('{role}'\
+                # '{email}','{username}', '{password}','{registered}')\
                 #  RETURNING *;"
-        # pprint(user)
         # self.cursor.execute(user)
         # return self.cursor.fetchone()
                                        

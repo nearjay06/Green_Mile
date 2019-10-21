@@ -16,7 +16,7 @@
             <div class="menu">
             <a href = "{{url_for('index')}}"> Home</a>   
             <a href = "{{url_for('dash')}}"> Dashboard</a>
-            <a href="{{url_for('logout')}}">Log Out</a>
+            <a href="{{url_for('login')}}">Log Out</a>
             
         </div>
         </div>
@@ -28,13 +28,14 @@
 
         <div class="info"> 
             <label>Date:</label> <br>
-            <input type="number" placeholder="Date"></input> <br>
+            <input type="date" placeholder="Date"></input> <br>
             <label>Time:</label><br>
-            <input type="number" placeholder="Time"></input><br>
+            <input type="time" placeholder="Time"></input><br>
             <label>Pickup Location:</label><br>
-            <input type="text" placeholder="Pickup"></input> <br>
+            <input type="text" placeholder="Pickup Location"></input> <br>
             <label>Destination:</label> <br>
             <input type="text" placeholder="Destination"></input> <br>
+           
         </div>
         
         <div class="track">

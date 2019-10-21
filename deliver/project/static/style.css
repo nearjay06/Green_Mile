@@ -46,11 +46,11 @@ h1{
 }
 
 #sign{
-    margin-left: 10%;
+    margin-left: 35%;
     background-color: rgb(40, 119, 73);
     border-radius: 7px;
     width: 400px;
-    height: 350px; 
+    height: 420px; 
     color: azure;
     font-size: 17px;
     padding:3px;
@@ -130,7 +130,7 @@ h1{
 
 .track{
     padding-left:34%;
-    margin-top:-250px; 
+    margin-top:-22%; 
     font-size:20px;
     font-weight:bolder;
     font-family:cambria;
@@ -149,6 +149,60 @@ h1{
     color:maroon;
     text-decoration: none;
 }
+
+
+.load{
+
+  font-family:georgia;
+  font-size:16px;
+  font-weight:bold;
+  margin-left: -50%;
+  
+}
+
+.load label, .loaded label{
+    font-size:15px;
+    
+}
+
+.load input{
+    padding:8px;
+    width: 20%;
+    border-radius:10px;
+
+}
+
+.loaded{
+  font-family:georgia;
+  font-size:16px;
+  font-weight:bold;
+  margin-left: 20%;
+  margin-top:-18%;
+
+}
+.loaded input{
+    padding:8px;
+    width: 35%;
+    border-radius:10px;
+
+}
+
+.goods button{
+    border-radius:10px;
+    padding:10px;
+    background-color:azure;
+    margin-top:6%;
+    margin-left: -10%;
+}
+
+.goods{
+    background-color: rgb(40, 119, 73);
+    width:90%;
+    border-radius:10px;
+    padding:50px;
+    opacity:0.9;
+}
+
 
 .role{
 

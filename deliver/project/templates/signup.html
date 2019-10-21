@@ -4,7 +4,7 @@
         {% if title %}
         <title>{{title}} - Green Mile</title>
         {% else %}
-        <title> Signup Page </title>
+        <title> Register Page </title>
         {% endif %}
         <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     
@@ -40,17 +40,11 @@
 
         {% endif %}
         {% endwith %}
-<h1>Create User</h1>
+<h1>Register User</h1>
 
-<form  method="post" id="sign" >
+<form  method="post" id="sign" action="/admin">
     {{form.hidden_tag()}}
-    <p>{{form.firstname.label}} <br>
-        {{form.firstname(size=32)}} <br>
-        {% for error in form.firstname.errors %}
-        <span style="color:red;">[{{error}}]</span>
-        {% endfor %}
-        </p>
-
+    
     <p>{{form.username.label}} <br>
     {{form.username(size=32)}} <br>
     {% for error in form.username.errors %}
@@ -66,18 +60,7 @@
         {% endfor %}
       </p>
 
-</form>
-
-    <form  method="post" id="create">
-        {{form.hidden_tag()}}
-
-        <p>{{form.lastname.label}} <br>
-            {{form.lastname(size=32)}} <br>
-            {% for error in form.lastname.errors %}
-            <span style="color:red;">[{{error}}]</span>
-            {% endfor %}
-            </p>
-       <p>{{form.email.label}} <br>
+      <p>{{form.email.label}} <br>
         {{form.email(size=32)}} <br>
         {% for error in form.email.errors %}
         <span style="color:red;">[{{error}}]</span>

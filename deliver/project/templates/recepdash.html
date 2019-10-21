@@ -15,7 +15,7 @@
         <div class="green"><a href = "{{url_for('index')}}">Green Mile Company</a> </div>
             <div class="menu">
             <a href = "{{url_for('index')}}"> Home</a>   
-            <a href = "{{url_for('loadash')}}"> Loader Dashboard</a>
+            <a href = "{{url_for('recepdash')}}"> Recepient Dashboard</a>
             <a href="{{url_for('login')}}">Log Out</a>
             
         </div>
@@ -23,36 +23,28 @@
 
         <hr>
 
-        <h1> Loader Dashboard</h1>
-
-        <div class="goods">
-
-        <div class="load"> 
+        <h1>My Account</h1>
+        <div class="info"> 
             <label>Date:</label> <br>
             <input type="date" placeholder="Date"></input> <br>
-            <label>Time:</label><br>
+            <label>Time of Order:</label><br>
             <input type="time" placeholder="Time"></input><br>
-            <label>Goods/Items(Quantity) requested:</label> <br>
-            <input type="text" placeholder="Goods requested"></input> <br>
-            <label>Recepient:</label><br>
-            <input type="text" placeholder="Recepient Name"></input><br>
-        </div>
-        <div class="loaded">
-            <label>Mode of transportation:</label> <br>
-            <input type="text" placeholder="Transportation"></input> <br>       
+            <label>Duration of Delivery:</label><br>
+            <input type="minutes" placeholder="Duration of delivery"></input><br>
             <label>Pickup Location:</label><br>
             <input type="text" placeholder="Pickup Location"></input> <br>
             <label>Destination:</label> <br>
             <input type="text" placeholder="Destination"></input> <br>
-            <label>Amount/Cost(UGX):</label> <br>
-            <input type="number" placeholder="Charges"></input> <br>
            
-          
         </div>
-        <button>Request Received</button></div>
+        
+        <div class="track">
+        <h2>Track your Package</h2>
+        <img src="../static/distance.jpg" height="300px" width="600px">
+        </div>
 
 
-               
+              
         {% with messages=get_flashed_messages()%}
         {% if messages %}
         <ul>

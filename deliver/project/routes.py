@@ -34,22 +34,21 @@ def signup():
     form = SignupForm()
     msg = ''
         
-    if request.method == 'POST' and 'firstname' in request.form and 'lastname' in request.form and 'username' in request.form and 'email' in request.form and 'role' in request.form and 'password' in request.form  and 'confirmpassword' in request.form:
-        firstname = request.form['firstname']
-        lastname = request.form['lastname']
+    if request.method == 'POST' and 'username' in request.form and 'email' in request.form and 'role' in request.form and 'password' in request.form  and 'confirmpassword' in request.form:
+        
         username = request.form['username']
         email = request.form['email']
         role = request.form['role']
         password = request.form['password']
         confirmpassword = request.form['confirmpassword'] 
         
-        register_user = UserModels.insert_users(firstname,lastname,username,email,role,password)
+        register_user = UserModels.insert_users(username,email,role,password)
         if register_user:
             db.session.add(register_user)
             db.session.commit()
-            return redirect(url_for('admin'))
+            return redirect(url_for('users'))
         else:
-            msg = 'Please sign up first!'
+            msg = 'Please register a user first!'
             return redirect(url_for('signup'))      
     return render_template('signup.html',title='Sign Up', form=form, msg=msg, users = users) 
 
@@ -78,17 +77,23 @@ def login():
 def dash():
     return render_template('dash.html', title='Dash') 
 
+
+@app.route('/recepdash', methods=['GET', 'POST'])
+def recepdash():
+    return render_template('recepdash.html', title='recepdash') 
+
+@app.route('/supdash', methods=['GET', 'POST'])
+def supdash():
+    return render_template('supdash.html', title='supdash') 
+
+@app.route('/loadash', methods=['GET', 'POST'])
+def loadash():
+    return render_template('loadash.html', title='loadash') 
+
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
-
-# @app.route('/logout')
-# def logout():
-#     session.pop('loggedin', None)
-#     session.pop('id', None)
-#     session.pop('username', None)
-#    return redirect(url_for('login'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -142,9 +147,10 @@ def suppliers():
                 "dbname='greenmile' user='postgres' host='localhost'  port= '5432' password='123'"
             )
         cursor = connection.cursor(cursor_factory=RealDictCursor)    
-        query = "SELECT * from suppliers"
+        query = "SELECT * from users where role='supplier'"
         cursor.execute(query)
-        suppliers = cur.fetchall()
+        suppliers = cursor.fetchall()
+        print(suppliers)
         cursor.close()
         return render_template('suppliers.html', suppliers=suppliers,title='Suppliers')
     except Exception as e:
@@ -158,7 +164,7 @@ def loaders():
                 "dbname='greenmile' user='postgres' host='localhost' port= '5432' password='123'"
             )
         cursor = connection.cursor(cursor_factory=RealDictCursor)    
-        query = "SELECT * from loaders"
+        query = "SELECT * from users where role='loader'"
         cursor.execute(query)
         loaders = cursor.fetchall()
         cursor.close()
@@ -166,8 +172,21 @@ def loaders():
     except Exception as e:
         return (str(e))
 
+@app.route('/recepients', methods=['GET', 'POST'])
+def recepients():
+    try:
+        connection = psycopg2.connect(
+                "dbname='greenmile' user='postgres' host='localhost' port= '5432' password='123'"
+            )
+        cursor = connection.cursor(cursor_factory=RealDictCursor)    
+        query = "SELECT * from users where role ='recepients'"
+        cursor.execute(query)
+        recepients = cursor.fetchall()
+        cursor.close()
+        return render_template('recepients.html', recepients=recepients,title='Recepients') 
+    except Exception as e:
+        return (str(e))
 
 
 
-
-
+    

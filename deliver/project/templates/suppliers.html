@@ -41,20 +41,20 @@
 <table >
     <tr>
         <th>ID</th>
-        <th>FIRSTNAME</th>
-        <th>LASTNAME</th>
         <th>USERNAME</th>
         <th>EMAIL</th>
+        <th>ROLE</th>
+
 
     </tr>
 {% for item in suppliers %}
 
     <tr>
         <td>{{item.id}}</td>
-        <td>{{item.firstname}}</td>
-        <td>{{item.lastname}}</td>
         <td>{{item.username}}</td>
         <td>{{item.email}}</td>
+        <td>{{item.role}}</td>
+
 
     </tr>
     {% endfor %}

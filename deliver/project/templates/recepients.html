@@ -4,7 +4,7 @@
         {% if title %}
         <title>{{title}} - Green Mile</title>
         {% else %}
-        <title> Loaders Page </title>
+        <title> Recepients Page </title>
         {% endif %}
         <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     
@@ -15,17 +15,15 @@
             <div class="green"> <a href = "{{url_for('index')}}">Green Mile Company</a> </div>
             <div class="adminmenu">
             <a href = "{{url_for('index')}}"> Home</a>
-             <a href="{{url_for('loaders')}}"> Loaders</a>
-            <a href = "{{url_for('dash')}}"> Dashboard</a>
+            <a href="{{url_for('recepients')}}"> Recepients</a>
             <a href="{{url_for('logout')}}">Log Out</a>
             </div>
             
         </div>
 
-        <hr>
-                           
+        <hr>                         
 
-         {% with messages=get_flashed_messages()%}
+        {% with messages=get_flashed_messages()%}
         {% if messages %}
         <ul>
             {% for message in messages %}
@@ -37,23 +35,24 @@
         {% endif %}
         {% endwith %}
 
-
-
-
-  <h1>Loaders</h1>
-
+ <h1>Recepients</h1>
 <table >
     <tr>
         <th>ID</th>
+        <th>FIRSTNAME</th>
+        <th>LASTNAME</th>
         <th>USERNAME</th>
         <th>EMAIL</th>
         <th>ROLE</th>
 
+
     </tr>
-{% for item in loaders %}
+{% for item in suppliers %}
 
     <tr>
         <td>{{item.id}}</td>
+        <td>{{item.firstname}}</td>
+        <td>{{item.lastname}}</td>
         <td>{{item.username}}</td>
         <td>{{item.email}}</td>
         <td>{{item.role}}</td>
@@ -63,6 +62,8 @@
     {% endfor %}
 </table>
 {% endblock  %}
+
+
 
 </body>
 </html>

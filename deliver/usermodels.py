@@ -6,22 +6,20 @@ connection = DatabaseConnection()
 
 class UserModels():
     @staticmethod
-    def insert_users(firstname,lastname,username,email,role,password):
+    def insert_users(username,email,role,password):
 
-        user = f"INSERT INTO users (firstname, lastname, username,email,\
-                role,password) VALUES('{firstname}', '{lastname}',\
+        user = f"INSERT INTO users (username,email,\
+                role,password) VALUES(\
                 '{username}','{email}','{role}','{password}')\
                 RETURNING *;"
-        pprint(user)
         connection.cursor.execute(user)
-        return connection.cursor.fetchone()
+        return "user registered successfully"
 
     @staticmethod
     def login_users(username, password):
 
         user = f"INSERT INTO users (username, password) VALUES('{username}', '{password}')\
                 RETURNING *;"
-        pprint(user)
         connection.cursor.execute(user)
         return connection.cursor.fetchone()
 
@@ -43,38 +41,17 @@ class UserModels():
     
     @staticmethod
     def get_loaders(self):
-    
         query = """SELECT * FROM loaders""" 
         self.cursor.execute(query)
         return self.cursor.fetchall()  
     
-    
-    
-    
-    
-    
+       
     @staticmethod
     def get_specific_user(self,username,password):
         
         query = """SELECT username FROM users WHERE username = '{}' AND password = '{}'""".format(username, password) 
         self.cursor.execute(query)
         return self.cursor.fetchone() 
-
-
-
-                                       
-# class UserModels():
-#     @staticmethod
-#     def insert_users():
-#         date_created= datetime.datetime.utcnow() 
-
-#         user = f"INSERT INTO users (firstname, lastname, username,email,\
-#                 role,password,registered) VALUES('joan', 'okecho',\
-#                 'jojo','jay@example.com','admin','password','date_created')\ 
-#                     RETURNING *;"
-#         pprint(user)
-#         connection.cursor.execute(user)
-#         return connection.cursor.fetchone()
 
 
                                 
