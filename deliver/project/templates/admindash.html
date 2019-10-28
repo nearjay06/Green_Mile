@@ -14,31 +14,25 @@
             <div class="green"> <a href = "{{url_for('index')}}">Green Mile Company</a> </div>
             <div class="adminmenu">
             <a href = "{{url_for('index')}}"> Home</a>
-            <a href="{{url_for('signup')}}"> Register Users </a>
-            <a href="{{url_for('users')}}"> Recepients </a>
-            <a href="{{url_for('suppliers')}}"> Suppliers</a>
-            <a href="{{url_for('loaders')}}"> Loaders </a>
+            <a href="{{url_for('register')}}"> Register Users </a>
             <a href = "{{url_for('dash')}}"> Dashboard</a>
             <a href = "{{url_for('admin')}}"> Admin Dashboard</a>
-
             <a href="{{url_for('logout')}}">Log Out</a>
             </div>
             
         </div>
-
         <hr>
             <h1>Admin Dashboard<h1>
-                       
+                                       
         <div class="role">
-            
-                    <a href="{{url_for('users')}}"> View Recepients </a> <br>
-                    <a href="{{url_for('suppliers')}}"> View Suppliers</a> <br>
-                    <a href="{{url_for('loaders')}}"> View Loaders </a> <br>
-            
+                <a href="{{url_for('users')}}"> View All Users </a> <br>
+                <a href="{{url_for('recepients')}}"> View Recepients </a> <br>
+                <a href="{{url_for('suppliers')}}"> View Suppliers</a> <br>
+                 <a href="{{url_for('loaders')}}"> View Loaders </a> <br>
+                   
         </div>
-                
-
-         {% with messages=get_flashed_messages()%}
+          
+        {% with messages=get_flashed_messages()%}
         {% if messages %}
         <ul>
             {% for message in messages %}

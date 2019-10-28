@@ -38,11 +38,8 @@
         {% endif %}
         {% endwith %}
 
-
-
 <h1>Admin Login</h1>
 <form action="admin" method="post" id="login">
-        {{csrf_token}}
 
     {{form.hidden_tag()}}
     <p>{{form.Adminusername.label}} <br>

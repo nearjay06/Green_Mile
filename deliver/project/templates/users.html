@@ -17,7 +17,7 @@
             <div class="adminmenu">
             <a href = "{{url_for('index')}}"> Home</a>
              <a href="{{url_for('users')}}"> Users</a>
-            <a href = "{{url_for('dash')}}"> Dashboard</a>
+             <a href = "{{url_for('admin')}}"> Admin Dashboard</a>
             <a href="{{url_for('logout')}}">Log Out</a>
             </div>
             
@@ -42,28 +42,30 @@
 <h1>Users</h1>
 
 <table >
+    <thead>
     <tr>
         <th>ID</th>
         <th>USERNAME</th>
         <th>EMAIL</th>
         <th>ROLE</th>
-
-
     </tr>
-{% for item in userDetails %}
+    </thead>
 
+  {% for user in user %}
+    <tbody>
     <tr>
-        <td>{{item.id}}</td>
-        <td>{{item.username}}</td>
-        <td>{{item.email}}</td>
-        <td>{{item.role}}</td>
-
-
-    </tr>
+        <td>{{user.id}}</td>
+        <td>{{user.username}}</td> 
+        <td>{{user.email}}</td> 
+        <td>{{user.role}}</td> 
+        {% else %}
+                <td><em>no users found</em></td>
+            </tr>       
     {% endfor %}
+    </tbody> 
 </table>
 {% endblock  %}
 
-
 </body>
 </html>
+

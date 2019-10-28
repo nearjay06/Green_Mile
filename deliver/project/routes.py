@@ -1,15 +1,10 @@
-from flask import render_template,flash, redirect, url_for, request, Flask, session
-from flask_login import current_user, login_user, logout_user, login_required
+from flask import render_template, flash, redirect, url_for, request, Flask, session
+from project import app
+from project.forms import LoginForm, RegistrationForm, AdminForm
+from project.models import User, Supplier, Loader, Recepient 
+from flask_login import current_user, login_user, logout_user, login_required 
 from project import app, db
-from project.forms import LoginForm,SignupForm, AdminForm
-from werkzeug.urls import url_parse
-from wtforms import Form, BooleanField, StringField, PasswordField, validators
-import re
-import psycopg2
-from psycopg2.extras import RealDictCursor
-from  usermodels import UserModels
-from database import DatabaseConnection
-database_connection = DatabaseConnection() 
+
 
 @app.route('/hello') 
 def hello():
@@ -18,60 +13,71 @@ def hello():
 @app.route('/')
 @app.route('/index')
 def index():
-    user = {'username': 'Client'}
+    user = {'username': 'Client'}  
     posts = [
         {
             'author': {'username': 'Client'},
             'body':'Welcome to Green Mile'
 
         }
-
     ]
-    return render_template('index.html', title='Home Page', user=user,posts=posts)
-  
-@app.route('/signup', methods=['GET','POST']) 
-def signup():
-    form = SignupForm()
-    msg = ''
-        
-    if request.method == 'POST' and 'username' in request.form and 'email' in request.form and 'role' in request.form and 'password' in request.form  and 'confirmpassword' in request.form:
-        
-        username = request.form['username']
-        email = request.form['email']
-        role = request.form['role']
-        password = request.form['password']
-        confirmpassword = request.form['confirmpassword'] 
-        
-        register_user = UserModels.insert_users(username,email,role,password)
-        if register_user:
-            db.session.add(register_user)
-            db.session.commit()
-            return redirect(url_for('users'))
-        else:
-            msg = 'Please register a user first!'
-            return redirect(url_for('signup'))      
-    return render_template('signup.html',title='Sign Up', form=form, msg=msg, users = users) 
+    
+    return render_template('index.html', title='Home',posts=posts)
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET','POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index')) 
     form = LoginForm()
-    msg = ''
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-        username = request.form['username']
-        password = request.form['password']
-        
-        login_users = UserModels.login_users(username, password) 
-        if login_users:
-            session['loggedin'] = True
-            # session['id'] = users['id']
-            # session['username'] = users['username']
-            # session['password'] = users['password'] 
-            # return 'Signed in successfully!'
-        else:
-          msg = 'Incorrect username or password!'
-        return redirect(url_for('dash'))
-    return render_template('login.html', title='Sign In', form=form, msg=msg)
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user, remember=form.remember_me.data)
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('index')
+        return redirect(next_page)
+        return redirect(url_for('recepdash')) 
+    return render_template('login.html', title='Sign In', form=form)
 
+@app.route('/adminlogin', methods=['GET','POST'])
+def adminlogin():
+    form = AdminForm()
+    if form.validate_on_submit():
+        admin = Admin.query.filter_by(Adminusername=form.Adminusername.data).first()
+        if admin is None or not admin.check_password(form.password.data):
+            flash('Invalid username or password')
+        return redirect(url_for('adminlogin'))
+    return render_template('adminlogin.html', title='AdminSign In', form=form)
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Congratulations, you have registered a user!')
+        return redirect(url_for('admin'))
+    return render_template('register.html', title='Register', form=form)
+
+
+@app.route('/admin', methods=['GET', 'POST'])
+def admin():
+    user = User.query.order_by(User.username).all()
+    print (user)     
+    
+    return render_template('admindash.html', user=user, title='AdminPage') 
 
 @app.route('/dash', methods=['GET', 'POST'])
 def dash():
@@ -90,102 +96,37 @@ def supdash():
 def loadash():
     return render_template('loadash.html', title='loadash') 
 
-@app.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('index'))
-
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data)
-        user.set_password(form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        flash('Congratulations, you are now a registered user!')
-        return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form)
-
-@app.route('/admin', methods=['GET', 'POST'])
-def admin():
-    return render_template('admindash.html', title='AdminPage') 
-
-@app.route('/adminlogin', methods=['GET','POST'])
-def adminlogin():
-    form = AdminForm()
-    if form.validate_on_submit():
-        admin = Admin.query.filter_by(Adminusername=form.Adminusername.data).first()
-        if admin is None or not admin.check_password(form.password.data):
-            flash('Invalid username or password')
-        return redirect(url_for('adminlogin'))
-    return render_template('adminlogin.html', title='AdminSign In', form=form)
-    
-
 @app.route('/users', methods=['GET', 'POST'])
 def users():
-    try:
-        connection = psycopg2.connect(
-                "dbname='greenmile' user='postgres' host='localhost'  port= '5432' password='123'"
-            )
-        cursor = connection.cursor(cursor_factory=RealDictCursor)    
-        query = "SELECT * from users"
-        cursor.execute(query)
-        userDetails = cursor.fetchall()
-        cursor.close()
-        return render_template('users.html', userDetails=userDetails,title='Users') 
-    except Exception as e:
-        return (str(e))
+    user = User.query.order_by(User.username).all()
+    print (user)     
+    
+    return render_template('users.html', userDetails=users,title='Users') 
+   
 
 @app.route('/suppliers', methods=['GET', 'POST'])
 def suppliers():
-    try:
-        connection = psycopg2.connect(
-                "dbname='greenmile' user='postgres' host='localhost'  port= '5432' password='123'"
-            )
-        cursor = connection.cursor(cursor_factory=RealDictCursor)    
-        query = "SELECT * from users where role='supplier'"
-        cursor.execute(query)
-        suppliers = cursor.fetchall()
-        print(suppliers)
-        cursor.close()
-        return render_template('suppliers.html', suppliers=suppliers,title='Suppliers')
-    except Exception as e:
-        return (str(e))
+    supplier = Supplier.query.order_by(Supplier.username).all()
+    print (supplier)     
+    
+
+    return render_template('suppliers.html', suppliers=suppliers,title='Suppliers')
     
 
 @app.route('/loaders', methods=['GET', 'POST'])
 def loaders():
-    try:
-        connection = psycopg2.connect(
-                "dbname='greenmile' user='postgres' host='localhost' port= '5432' password='123'"
-            )
-        cursor = connection.cursor(cursor_factory=RealDictCursor)    
-        query = "SELECT * from users where role='loader'"
-        cursor.execute(query)
-        loaders = cursor.fetchall()
-        cursor.close()
-        return render_template('loaders.html', loaders=loaders,title='Loaders') 
-    except Exception as e:
-        return (str(e))
+    loader = Loader.query.order_by(Loader.username).all()
+    print (loader)       
+    return render_template('loaders.html', loaders=loaders,title='Loaders') 
+    
 
 @app.route('/recepients', methods=['GET', 'POST'])
 def recepients():
-    try:
-        connection = psycopg2.connect(
-                "dbname='greenmile' user='postgres' host='localhost' port= '5432' password='123'"
-            )
-        cursor = connection.cursor(cursor_factory=RealDictCursor)    
-        query = "SELECT * from users where role ='recepients'"
-        cursor.execute(query)
-        recepients = cursor.fetchall()
-        cursor.close()
-        return render_template('recepients.html', recepients=recepients,title='Recepients') 
-    except Exception as e:
-        return (str(e))
+    recepient = Recepient.query.order_by(Recepient.username).all()
+    print (recepient)      
+    
+    return render_template('recepients.html', recepients=recepients,title='Recepients') 
+    
 
 
 

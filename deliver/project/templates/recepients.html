@@ -16,7 +16,8 @@
             <div class="adminmenu">
             <a href = "{{url_for('index')}}"> Home</a>
             <a href="{{url_for('recepients')}}"> Recepients</a>
-            <a href="{{url_for('logout')}}">Log Out</a>
+            <a href = "{{url_for('admin')}}"> Admin Dashboard</a>
+            <a href="{{url_for('login')}}">Log Out</a>
             </div>
             
         </div>
@@ -39,26 +40,23 @@
 <table >
     <tr>
         <th>ID</th>
-        <th>FIRSTNAME</th>
-        <th>LASTNAME</th>
         <th>USERNAME</th>
         <th>EMAIL</th>
         <th>ROLE</th>
-
-
+        
     </tr>
-{% for item in suppliers %}
-
+    {% for recepient in recepient %}
+        
     <tr>
-        <td>{{item.id}}</td>
-        <td>{{item.firstname}}</td>
-        <td>{{item.lastname}}</td>
-        <td>{{item.username}}</td>
-        <td>{{item.email}}</td>
-        <td>{{item.role}}</td>
+        <td>{{recepient.id}}</td>
+        <td>{{recepient.username}}</td>
+        <td>{{recepient.email}}</td>
+        <td>{{recepient.role}}</td>
 
-
-    </tr>
+        {% else %}
+        <td><em>no recepients found</em></td>
+       
+      </tr>
     {% endfor %}
 </table>
 {% endblock  %}

@@ -42,7 +42,7 @@
         {% endwith %}
 <h1>Register User</h1>
 
-<form  method="post" id="sign" action="/admin">
+<form  method="post" id="sign" action="">
     {{form.hidden_tag()}}
     
     <p>{{form.username.label}} <br>
@@ -81,7 +81,6 @@
         {% endfor %}
         </p>
 
-    <p>{{form.remember_me()}} {{form.remember_me.label}}</p>
     <p>{{form.submit()}}</p>
     </form>
     
