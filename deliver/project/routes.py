@@ -1,9 +1,8 @@
 from flask import render_template, flash, redirect, url_for, request, Flask, session
-from project import app
-from project.forms import LoginForm, RegistrationForm, AdminForm
-from project.models import User, Supplier, Loader, Recepient 
+from .forms import LoginForm, RegistrationForm, AdminForm
+from .models import User, Supplier, Loader, Recepient 
 from flask_login import current_user, login_user, logout_user, login_required 
-from project import app, db
+from . import app, db
 
 
 @app.route('/hello') 

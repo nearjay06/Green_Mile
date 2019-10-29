@@ -1,1 +1,0 @@
-[![Build Status](https://travis-ci.org/nearjay06/Green_Mile.svg?branch=ft-login-168228064)](https://travis-ci.org/nearjay06/Green_Mile)
