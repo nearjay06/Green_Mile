@@ -1,1 +1,1 @@
-web: gunicorn deliver:project:app
+web: gunicorn run:app
