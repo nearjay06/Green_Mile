@@ -43,31 +43,29 @@
   <h1>Loaders</h1>
 
 <table >
+    <thead>
     <tr>
         <th>ID</th>
         <th>USERNAME</th>
         <th>EMAIL</th>
         <th>ROLE</th>
-        
-
     </tr>
-{% for loader in user %}
+    </thead>
 
-{% for item in dict_item['content'] %}{{item[0]}} and {{item[1]}}{% endfor %}
-
+ {% for loader in loaders %}
+ <tbody>
     <tr>
         <td>{{loader.id}}</td>
         <td>{{loader.username}}</td>
         <td>{{loader.email}}</td>
         <td>{{loader.role}}</td>
-
-        {% else %}
-                <td><em>no loaders found</em></td>
-
+      {% else %}
+         <td><em>no loaders found</em></td>
     </tr>
     {% endfor %}
-</table>
-{% endblock  %}
+    </tbody>
+ </table>
+ {% endblock  %}
 
 </body>
 </html>

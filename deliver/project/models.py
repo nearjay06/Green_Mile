@@ -2,13 +2,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
 from . import db,login
+from sqlalchemy import Integer, Sequence
 
 class User(UserMixin,db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(20), index=True,unique=True)
     email = db.Column(db.String(50), index=True, unique=True)
-    role = db.Column(db.String(20), index=True, unique=True)
-    password_hash = db.Column(db.String(128))
+    role = db.Column(db.String(20), index=True, unique=False)
+    password_hash = db.Column(db.String(128)) 
     
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -29,10 +30,10 @@ class User(UserMixin,db.Model):
         return False
 
 class Supplier(UserMixin,db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(20), index=True,unique=True)
     email = db.Column(db.String(50), index=True, unique=True)
-    role = db.Column(db.String(20), index=True, unique=True)
+    role = db.Column(db.String(20), index=True, unique=False)
     password_hash = db.Column(db.String(128))
     
     def __repr__(self):
@@ -54,10 +55,10 @@ class Supplier(UserMixin,db.Model):
         return False
 
 class Loader(UserMixin,db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(20), index=True,unique=True)
     email = db.Column(db.String(50), index=True, unique=True)
-    role = db.Column(db.String(20), index=True, unique=True)
+    role = db.Column(db.String(20), index=True, unique=False)
     password_hash = db.Column(db.String(128))
     
     def __repr__(self):
@@ -80,10 +81,10 @@ class Loader(UserMixin,db.Model):
 
 
 class Recepient(UserMixin,db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(20), index=True,unique=True)
     email = db.Column(db.String(50), index=True, unique=True)
-    role = db.Column(db.String(20), index=True, unique=True)
+    role = db.Column(db.String(20), index=True, unique=False)
     password_hash = db.Column(db.String(128))
     
     def __repr__(self):

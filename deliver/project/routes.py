@@ -26,6 +26,7 @@ def index():
 @app.route('/login', methods=['GET','POST'])
 def login():
     if current_user.is_authenticated:
+        print(current_user.role)
         return redirect(url_for('index')) 
     form = LoginForm()
     if form.validate_on_submit():
@@ -53,16 +54,18 @@ def adminlogin():
 
 
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
+# @login_required
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data)
+        user = User(username=form.username.data, email=form.email.data, role=form.role.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -97,36 +100,32 @@ def loadash():
 
 @app.route('/users', methods=['GET', 'POST'])
 def users():
-    user = User.query.order_by(User.username).all()
-    print (user)     
+    users = User.query.order_by(User.username).all()
+    print (users)     
     
-    return render_template('users.html', userDetails=users,title='Users') 
+    return render_template('users.html', users=users,title='Users') 
    
 
 @app.route('/suppliers', methods=['GET', 'POST'])
 def suppliers():
-    supplier = Supplier.query.order_by(Supplier.username).all()
-    print (supplier)     
+    suppliers = User.query.filter_by(role='supplier').all()
+    print (suppliers)     
     
-
     return render_template('suppliers.html', suppliers=suppliers,title='Suppliers')
     
 
 @app.route('/loaders', methods=['GET', 'POST'])
 def loaders():
-    loader = Loader.query.order_by(Loader.username).all()
-    print (loader)       
+    loaders = User.query.filter_by(role='loader').all()
+    print (loaders)       
     return render_template('loaders.html', loaders=loaders,title='Loaders') 
     
 
 @app.route('/recepients', methods=['GET', 'POST'])
 def recepients():
-    recepient = Recepient.query.order_by(Recepient.username).all()
-    print (recepient)      
-    
+    recepients = User.query.filter_by(role='recepient').all()
+    print (recepients)
+
     return render_template('recepients.html', recepients=recepients,title='Recepients') 
     
 
-
-
-    
