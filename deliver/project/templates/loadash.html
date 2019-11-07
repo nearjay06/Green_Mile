@@ -24,34 +24,123 @@
         <hr>
 
         <h1> Loader Dashboard</h1>
+        
+        <table >
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>DATE</th>
+                <th>TIME</th>
+                <th>GOODS/ITEMS REQUESTED</th>
+                <th>QUANTITY</th>
+                <th>RECEPIENT</th>
+                <th>PICKUP LOCATION</th>
+                <th>DESTINATION</th>
+                <th>MODE OF TRANSPORTATION</th>
+                <th>AMOUNT/COST(UGX)</th>
+            </tr>
+            </thead>
+                  
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>01/01/2018</td> 
+                <td>08:00am</td> 
+                <td>Rice</td> 
+                <td>2 sacks</td>
+                <td>Tom</td>
+                <td>Nakawa</td> 
+                <td>Kireka</td> 
+                <td>Pickup Truck</td> 
+                <td>50,000</td> 
 
-        <div class="goods">
+            </tr>
+            
+            <tr>
+                <td>2</td>
+                <td>23/06/2019</td> 
+                <td>3:33pm</td> 
+                <td>Books</td> 
+                <td>7 boxes</td> 
+                <td>Hannah</td>
+                <td>Kampala</td> 
+                <td>Lugazi</td>
+                <td>Pickup Truck</td> 
+                <td>60,000</td> 
+            </tr>
 
-        <div class="load"> 
-            <label>Date:</label> <br>
-            <input type="date" placeholder="Date"></input> <br>
-            <label>Time:</label><br>
-            <input type="time" placeholder="Time"></input><br>
-            <label>Goods/Items(Quantity) requested:</label> <br>
-            <input type="text" placeholder="Goods requested"></input> <br>
-            <label>Recepient:</label><br>
-            <input type="text" placeholder="Recepient Name"></input><br>
-        </div>
-        <div class="loaded">
-            <label>Mode of transportation:</label> <br>
-            <input type="text" placeholder="Transportation"></input> <br>       
-            <label>Pickup Location:</label><br>
-            <input type="text" placeholder="Pickup Location"></input> <br>
-            <label>Destination:</label> <br>
-            <input type="text" placeholder="Destination"></input> <br>
-            <label>Amount/Cost(UGX):</label> <br>
-            <input type="number" placeholder="Charges"></input> <br>
-           
-          
-        </div>
-        <button>Request Received</button></div>
+            <tr>
+                <td>3</td>
+                <td>22/02/2019</td> 
+                <td>2:45pm</td>
+                <td>Pizza</td>
+                <td>3 boxes</td> 
+                <td>Lala</td>
+                <td>Ntinda</td> 
+                <td>Wandegeya</td>
+                <td>Motorcycle</td> 
+                <td>5,000</td> 
+            </tr>
 
+            <tr>
+                <td>4</td>
+                <td>22/06/2019</td> 
+                <td>12:40pm</td> 
+                <td>Birthday Cakes</td> 
+                <td>2 boxes</td> 
+                <td>Lina</td>
+                <td>Mulago</td> 
+                <td>Naalya</td>
+                <td>Motorcycle</td>
+                <td>20,000</td> 
 
+            </tr>
+
+            <tr>
+                <td>5</td>
+                <td>30/09/2019</td> 
+                <td>10:30am</td>
+                <td>Flowers(Red Roses)</td> 
+                <td>6 bouquets</td> 
+                <td>Yasim</td>
+                <td>Bugolobi</td> 
+                <td>Namugongo</td> 
+                <td>Corolla</td>
+                <td>40,000</td> 
+
+            </tr>
+
+            <tr>
+                <td>-</td>
+                <td>-</td> 
+                <td>-</td>
+                <td>-</td> 
+                <td>-</td>
+                <td>-</td> 
+                <td>-</td> 
+                <td>-</td>
+                <td>-</td> 
+                <td>-</td> 
+
+            </tr>
+
+            <tr>
+                <td>-</td>
+                <td>-</td> 
+                <td>-</td>
+                <td>-</td> 
+                <td>-</td>
+                <td>-</td> 
+                <td>-</td> 
+                <td>-</td>
+                <td>-</td> 
+                <td>-</td> 
+
+            </tr>
+
+            </tbody> 
+        </table>
+        
                
         {% with messages=get_flashed_messages()%}
         {% if messages %}

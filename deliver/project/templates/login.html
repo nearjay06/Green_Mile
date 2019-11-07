@@ -24,9 +24,7 @@
         <hr>
         {% with messages=get_flashed_messages()%}
         {% if messages %}
-        <!-- <div class="notification is-danger">
-            {{ messages[0] }}
-            </div> -->
+       
         <ul>
             {% for message in messages %}
             <li>{{ message }}</li>

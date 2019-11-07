@@ -23,6 +23,7 @@
         <hr>
 
         <h1>My Account</h1>
+        <div class="tracker">
         <div class="info"> 
             <label>Date:</label> <br>
             <input type="date" placeholder="Date"></input> <br>
@@ -30,6 +31,8 @@
             <input type="time" placeholder="Time"></input><br>
             <label>Duration of Delivery:</label><br>
             <input type="minutes" placeholder="Duration of delivery"></input><br>
+            <label>Item to be delivered:</label><br>
+            <input type="text" placeholder="Item to be delivered"></input><br>
             <label>Pickup Location:</label><br>
             <input type="text" placeholder="Pickup Location"></input> <br>
             <label>Destination:</label> <br>
@@ -41,8 +44,7 @@
         <h2>Track your Package</h2>
         <img src="../static/distance.jpg" height="300px" width="600px">
         </div>
-
-
+        </div>
               
         {% with messages=get_flashed_messages()%}
         {% if messages %}

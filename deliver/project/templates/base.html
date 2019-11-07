@@ -26,23 +26,26 @@
              <a href = "{{url_for('loadash')}}"> Loader Dashboard</a>
              <a href="{{url_for('logout')}}">Log Out</a>
 
+
              {% elif current_user.is_authenticated and current_user.role == "recepient" %}
              <a href = "{{url_for('recepdash')}}"> MyDashboard</a>
              <a href="{{url_for('logout')}}">Log Out</a>
 
-
+             
             {% elif current_user.is_authenticated and current_user.role == "paperboy" %}
              <a href = "{{url_for('recepdash')}}"> Recepient Dashboard</a>
             <a href="{{url_for('logout')}}">Log Out</a>
              
             {% else %}
-            <a href="{{url_for('logout')}}">Log Out</a>
+            <a href="#">Logged Out</a>
 
             {% endif %} 
 
             </div>
         </div>
         <hr>
+
+        
         {% with messages=get_flashed_messages()%}
         {% if messages %}
         <ul>

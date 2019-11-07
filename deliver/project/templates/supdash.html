@@ -23,31 +23,130 @@
 
         <hr>
 
-        <h1> My Account</h1>
+        <h1> Supplier Account</h1>
 
-        <div class="info"> 
-            <label>Date:</label> <br>
-            <input type="date" placeholder="Date"></input> <br>
-            <label>Time:</label><br>
-            <input type="time" placeholder="Time"></input><br>
-            <label>Recepient:</label><br>
-            <input type="text" placeholder="Recepient Name"></input><br>
-            <label>Pickup Location:</label><br>
-            <input type="text" placeholder="Pickup Location"></input> <br>
-            <label>Destination:</label> <br>
-            <input type="text" placeholder="Destination"></input> <br>
-            <label>Invoices Paid:</label> <br>
-            <input type="number" placeholder="Invoices Paid"></input> <br>
-            <label>Invoices Pending:</label> <br>
-            <input type="number" placeholder="Invoices Pending"></input> <br>
-       
-        </div>
+        <div class="sup"> 
+        
+        <table >
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>DATE</th>
+                <th>TIME</th>
+                <th>PACKAGE</th>
+                <th>RECEPIENT</th>
+                <th>PICKUP LOCATION</th>
+                <th>DESTINATION</th>
+                <th>STATUS</th>
+                <th>INVOICES PAID</th>
+                <th>INVOICES PENDING</th>
+            </tr>
+            </thead>
+                  
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>01/01/2018</td> 
+                <td>08:00am</td> 
+                <td>2 sacks of rice</td> 
+                <td>Tom</td>
+                <td>Nakawa</td> 
+                <td>Kireka</td> 
+                <td>Delivered</td>
+                <td>2</td> 
+                <td>0</td> 
 
+            </tr>
+            
+            <tr>
+                <td>2</td>
+                <td>23/06/2019</td> 
+                <td>3:33pm</td> 
+                <td>Boxes of books</td> 
+                <td>Hannah</td>
+                <td>Kampala</td> 
+                <td>Lugazi</td>
+                <td>In transit</td> 
+                <td>5</td> 
+                <td>2</td> 
 
+            </tr>
 
+            <tr>
+                <td>3</td>
+                <td>22/02/2019</td> 
+                <td>2:45pm</td>
+                <td>Pizza</td> 
+                <td>Lala</td>
+                <td>Ntinda</td> 
+                <td>Wandegeya</td>
+                <td>Delivered</td> 
+                <td>3</td> 
+                <td>0</td> 
 
+            </tr>
 
+            <tr>
+                <td>4</td>
+                <td>22/06/2019</td> 
+                <td>12:40pm</td> 
+                <td>Birthday Cakes</td> 
+                <td>Lina</td>
+                <td>Mulago</td> 
+                <td>Naalya</td>
+                <td>In transit</td>
+                <td>2</td> 
+                <td>0</td> 
 
+            </tr>
+
+            <tr>
+                <td>5</td>
+                <td>30/09/2019</td> 
+                <td>10:30am</td>
+                <td>Flowers</td> 
+                <td>Yasim</td>
+                <td>Bugolobi</td> 
+                <td>Namugongo</td> 
+                <td>In transit</td>
+                <td>0</td> 
+                <td>6</td> 
+
+            </tr>
+
+            <tr>
+                <td>-</td>
+                <td>-</td> 
+                <td>-</td>
+                <td>-</td> 
+                <td>-</td>
+                <td>-</td> 
+                <td>-</td> 
+                <td>-</td>
+                <td>-</td> 
+                <td>-</td> 
+
+            </tr>
+
+            <tr>
+                <td>-</td>
+                <td>-</td> 
+                <td>-</td>
+                <td>-</td> 
+                <td>-</td>
+                <td>-</td> 
+                <td>-</td> 
+                <td>-</td>
+                <td>-</td> 
+                <td>-</td> 
+
+            </tr>
+
+            </tbody> 
+        </table>
+    </div>
+
+        
         {% with messages=get_flashed_messages()%}
         {% if messages %}
         <ul>

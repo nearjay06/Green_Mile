@@ -37,9 +37,8 @@ def login():
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('index')
+            next_page = url_for('roles', role=user.role)
         return redirect(next_page)
-        return redirect(url_for('recepdash')) 
     return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/adminlogin', methods=['GET','POST'])
@@ -86,15 +85,16 @@ def dash():
     return render_template('dash.html', title='Dash') 
 
 
-@app.route('/recepdash', methods=['GET', 'POST'])
+@app.route('/roles/recepient', methods=['GET', 'POST'])
 def recepdash():
     return render_template('recepdash.html', title='recepdash') 
 
-@app.route('/supdash', methods=['GET', 'POST'])
+@app.route('/roles/supplier', methods=['GET', 'POST'])
 def supdash():
+
     return render_template('supdash.html', title='supdash') 
 
-@app.route('/loadash', methods=['GET', 'POST'])
+@app.route('/roles/loader', methods=['GET', 'POST'])
 def loadash():
     return render_template('loadash.html', title='loadash') 
 
@@ -128,4 +128,9 @@ def recepients():
 
     return render_template('recepients.html', recepients=recepients,title='Recepients') 
     
+@app.route('/roles/<role>')
+def roles(role):
+    print(role)
+
+    return render_template('role.html',title='Home')
 
