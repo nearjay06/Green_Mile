@@ -1,15 +1,18 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
-from . import db,login
+from . import db,login_manager
 from sqlalchemy import Integer, Sequence
+from flask_admin import BaseView, expose
+
 
 class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(20), index=True,unique=True)
     email = db.Column(db.String(50), index=True, unique=True)
     role = db.Column(db.String(20), index=True, unique=False)
-    password_hash = db.Column(db.String(128)) 
+    password_hash = db.Column(db.String(128))
+    isAdmin = db.Column(db.Boolean, default = False) 
     
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -29,100 +32,52 @@ class User(UserMixin,db.Model):
     def is_anonymous(self):
         return False
 
-class Supplier(UserMixin,db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(20), index=True,unique=True)
-    email = db.Column(db.String(50), index=True, unique=True)
-    role = db.Column(db.String(20), index=True, unique=False)
-    password_hash = db.Column(db.String(128))
-    
-    def __repr__(self):
-        return '<Supplier {}>'.format(self.username)
-
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
-
-    def check_password(self,password):
-        return check_password_hash(self.password_hash, password)
-
-    def is_active(self):
-        return True
-    
-    def is_authenticated(self):
-        return self.authenticated
-
-    def is_anonymous(self):
-        return False
-
-class Loader(UserMixin,db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(20), index=True,unique=True)
-    email = db.Column(db.String(50), index=True, unique=True)
-    role = db.Column(db.String(20), index=True, unique=False)
-    password_hash = db.Column(db.String(128))
-    
-    def __repr__(self):
-        return '<Loader {}>'.format(self.username)
-
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
-
-    def check_password(self,password):
-        return check_password_hash(self.password_hash, password)
-
-    def is_active(self):
-        return True
-    
-    def is_authenticated(self):
-        return self.authenticated
-
-    def is_anonymous(self):
-        return False
-
-
-class Recepient(UserMixin,db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(20), index=True,unique=True)
-    email = db.Column(db.String(50), index=True, unique=True)
-    role = db.Column(db.String(20), index=True, unique=False)
-    password_hash = db.Column(db.String(128))
-    
-    def __repr__(self):
-        return '<Recepient {}>'.format(self.username)
-
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
-
-    def check_password(self,password):
-        return check_password_hash(self.password_hash, password)
-
-    def is_active(self):
-        return True
-    
-    def is_authenticated(self):
-        return self.authenticated
-
-    def is_anonymous(self):
-        return False
-
-class Admin(UserMixin,db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), index=True,unique=True)
-    email = db.Column(db.String(50), index=True, unique=True)
-    role = db.Column(db.String(20), index=True, unique=True)
-    password_hash = db.Column(db.String(128))
+class Supplier(db.Model):
+    id= db.Column(db.Integer, primary_key=True, autoincrement=True)
+    date=db.Column(db.Integer, index=True,unique=True)
+    time=db.Column(db.Integer, index=True,unique=True)
+    item=db.Column(db.String(20), index=True,unique=True)
+    recepient=db.Column(db.String(20), index=True,unique=True)       
+    pickup_location=db.Column(db.String(20), index=True,unique=True)         
+    destination=db.Column(db.String(20), index=True,unique=True)         
+    status=db.Column(db.String(20), index=True,unique=True)         
+    invoices_paid=db.Column(db.Integer, index=True,unique=True)        
+    invoices_pending=db.Column(db.Integer, index=True,unique=True)    
 
     def __repr__(self):
-        return '<Admin {}>'.format(self.username)
+        return '<Supply {}>'.format(self.id)
 
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
+    
+class Loader(db.Model):
+    id= db.Column(db.Integer, primary_key=True, autoincrement=True)
+    date=db.Column(db.Integer, index=True,unique=True)
+    time=db.Column(db.Integer, index=True,unique=True)
+    items_requested=db.Column(db.String(20), index=True,unique=True)         
+    quantity=db.Column(db.Integer, index=True,unique=True)
+    recepient=db.Column(db.String(20), index=True,unique=True)            
+    pickup_location=db.Column(db.String(20), index=True,unique=True) 
+    destination=db.Column(db.String(20), index=True,unique=True)
+    transportation=db.Column(db.String(20), index=True,unique=True)      
+    cost=db.Column(db.Integer, index=True,unique=True)
 
-    def check_password(self,password):
-        return check_password_hash(self.password_hash, password)
+
+    def __repr__(self):
+        return '<Load {}>'.format(self.id)
+
+class Recepient(db.Model):
+    id= db.Column(db.Integer, primary_key=True, autoincrement=True)
+    date=db.Column(db.Integer, index=True,unique=True)
+    time=db.Column(db.Integer, index=True,unique=True)
+    duration_of_delivery=db.Column(db.String(20), index=True,unique=True)
+    item_delivered=db.Column(db.String(20), index=True,unique=True)
+    pickup_location=db.Column(db.String(20), index=True,unique=True) 
+    destination=db.Column(db.String(20), index=True,unique=True)
+
+    def __repr__(self):
+        return '<Receive {}>'.format(self.id)
 
 
-@login.user_loader
+@login_manager.user_loader
 def load_user(id):
     return User.query.get(int(id))
 

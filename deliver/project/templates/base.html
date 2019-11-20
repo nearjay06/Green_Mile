@@ -15,31 +15,11 @@
                 
               {% if current_user.is_authenticated == False %}
                 <a href = "{{url_for('login')}}"> Signin  </a>
-                <a href = "{{url_for('adminlogin')}}"> Admin</a>
-
-             {% elif current_user.is_authenticated  and current_user.role == "supplier" %}
-             <a href = "{{url_for('supdash')}}"> Supplier Dashboard</a>
-             <a href="{{url_for('logout')}}">Log Out</a>
-
-
-             {% elif current_user.is_authenticated  and current_user.role == "loader" %}
-             <a href = "{{url_for('loadash')}}"> Loader Dashboard</a>
-             <a href="{{url_for('logout')}}">Log Out</a>
-
-
-             {% elif current_user.is_authenticated and current_user.role == "recepient" %}
-             <a href = "{{url_for('recepdash')}}"> MyDashboard</a>
-             <a href="{{url_for('logout')}}">Log Out</a>
-
-             
-            {% elif current_user.is_authenticated and current_user.role == "paperboy" %}
-             <a href = "{{url_for('recepdash')}}"> Recepient Dashboard</a>
-            <a href="{{url_for('logout')}}">Log Out</a>
-             
-            {% else %}
-            <a href="#">Logged Out</a>
-
-            {% endif %} 
+               
+       {% else %}
+       <a href = '/admin'>Dashboard</a>
+       <a href = "{{url_for('logout')}}">Logout </a>
+        {% endif %} 
 
             </div>
         </div>

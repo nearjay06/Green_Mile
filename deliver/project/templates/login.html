@@ -1,43 +1,10 @@
- 
+{% extends "base.html" %} 
 {% block content %}
-<html>
-    <head> 
-        {% if title %}
-        <title>{{title}} - Green Mile</title>
-        {% else %}
-        <title> Login Page </title>
-        {% endif %}
-        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    
-    </head>
 
-    <body>
-        <div class="base">
-            <div class="green"> <a href = "{{url_for('index')}}">Green Mile Company</a> </div>
-            <div class="adminmenu">
-            <a href = "{{url_for('index')}}"> Home</a>
-            <a href = "{{url_for('login')}}"> Signin</a>
-            <a href="{{url_for('logout')}}">Log Out</a>
-            </div>
-       </div>
-
-        <hr>
-        {% with messages=get_flashed_messages()%}
-        {% if messages %}
-       
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-
-       </ul>
-
-        {% endif %}
-        {% endwith %}
 
 <h1>Sign In</h1>
 <div>
-<form  method="post" id="login">
+<form  method="post" id="login"> 
         
     {{form.hidden_tag()}}
     <p>{{form.username.label}} <br>
@@ -51,6 +18,7 @@
       {{form.password(size=32)}}<br>
       {% for error in form.password.errors %}
       <span style="color:red;">[{{error }}]</span>
+
       {%endfor %}
     </p>
     <p>{{form.remember_me()}} {{form.remember_me.label}}</p>
