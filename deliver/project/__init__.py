@@ -4,14 +4,18 @@ from flask_migrate import Migrate
 from flask_login import LoginManager, current_user
 from ..config import Config
 from flask_admin import Admin, BaseView, expose
-from flask_admin.contrib.sqla import ModelView 
+from flask_admin.contrib.sqla import ModelView
+from flask_bcrypt import Bcrypt 
+
+
 
 
 app = Flask(__name__) 
 app.config.from_object(Config)
 db = SQLAlchemy(app)
-app.config['FLASK_ADMIN_SWATCH'] = 'flatly'
+app.config['FLASK_ADMIN_SWATCH'] = 'flatly' 
 admin = Admin(app, name='greenmile Admin', template_mode='bootstrap3')
+bcrypt = Bcrypt(app) 
 
 migrate = Migrate(app, db)
  
