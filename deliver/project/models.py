@@ -7,6 +7,7 @@ from flask_admin import BaseView, expose
 from deliver.project import bcrypt
 from sqlalchemy import event
 from flask_bcrypt import generate_password_hash
+ 
 
 
 class User(UserMixin,db.Model):
@@ -47,9 +48,8 @@ def hash_user_password(target, value, oldvalue, initiator):
 
 class Supplier(db.Model):
     id= db.Column(db.Integer, primary_key=True, autoincrement=True)
-    date=db.Column(db.Integer, index=True,unique=True)
-    time=db.Column(db.Integer, index=True,unique=True)
-    item=db.Column(db.String(20), index=True,unique=True)
+    date=db.Column(db.DateTime, index=True,unique=True,default=datetime.today)
+    item=db.Column(db.String(100), index=True,unique=True)
     recepient=db.Column(db.String(20), index=True,unique=True)       
     pickup_location=db.Column(db.String(20), index=True,unique=True)         
     destination=db.Column(db.String(20), index=True,unique=True)         
@@ -63,15 +63,14 @@ class Supplier(db.Model):
     
 class Loader(db.Model):
     id= db.Column(db.Integer, primary_key=True, autoincrement=True)
-    date=db.Column(db.Integer, index=True,unique=True)
-    time=db.Column(db.Integer, index=True,unique=True)
-    items_requested=db.Column(db.String(20), index=True,unique=True)         
-    quantity=db.Column(db.Integer, index=True,unique=True)
+    date=db.Column(db.DateTime, index=True,unique=True,default=datetime.today)
+    items_requested=db.Column(db.String(100), index=True,unique=True)         
+    quantity=db.Column(db.String, index=True,unique=True)
     recepient=db.Column(db.String(20), index=True,unique=True)            
     pickup_location=db.Column(db.String(20), index=True,unique=True) 
     destination=db.Column(db.String(20), index=True,unique=True)
     transportation=db.Column(db.String(20), index=True,unique=True)      
-    cost=db.Column(db.Integer, index=True,unique=True)
+    cost=db.Column(db.String(100), index=True,unique=True)
 
 
     def __repr__(self):
@@ -79,10 +78,9 @@ class Loader(db.Model):
 
 class Recepient(db.Model):
     id= db.Column(db.Integer, primary_key=True, autoincrement=True)
-    date=db.Column(db.Integer, index=True,unique=True)
-    time=db.Column(db.Integer, index=True,unique=True)
+    date=db.Column(db.DateTime, index=True,unique=True,default=datetime.today)
     duration_of_delivery=db.Column(db.String(20), index=True,unique=True)
-    item_delivered=db.Column(db.String(20), index=True,unique=True)
+    items_requested=db.Column(db.String(100), index=True,unique=True)
     pickup_location=db.Column(db.String(20), index=True,unique=True) 
     destination=db.Column(db.String(20), index=True,unique=True)
 
@@ -93,5 +91,6 @@ class Recepient(db.Model):
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
 
 

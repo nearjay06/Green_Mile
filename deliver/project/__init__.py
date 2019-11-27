@@ -9,12 +9,11 @@ from flask_bcrypt import Bcrypt
 
 
 
-
 app = Flask(__name__) 
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 app.config['FLASK_ADMIN_SWATCH'] = 'flatly' 
-admin = Admin(app, name='greenmile Admin', template_mode='bootstrap3')
+admin = Admin(app, name='Greenmile ', template_mode='bootstrap3')
 bcrypt = Bcrypt(app) 
 
 migrate = Migrate(app, db)
