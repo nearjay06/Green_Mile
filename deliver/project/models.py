@@ -1,4 +1,3 @@
-# from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
 from . import db,login_manager
@@ -51,11 +50,10 @@ class Supplier(db.Model):
     date=db.Column(db.DateTime, index=True,unique=True,default=datetime.today)
     item=db.Column(db.String(100), index=True,unique=True)
     recepient=db.Column(db.String(20), index=True,unique=True)       
-    pickup_location=db.Column(db.String(20), index=True,unique=True)         
+    dropoff_location=db.Column(db.String(20), index=True,unique=True)         
     destination=db.Column(db.String(20), index=True,unique=True)         
-    status=db.Column(db.String(20), index=True,unique=True)         
-    invoices_paid=db.Column(db.Integer, index=True,unique=True)        
-    invoices_pending=db.Column(db.Integer, index=True,unique=True)    
+    delivery_status=db.Column(db.String(20), index=True,unique=True)         
+       
 
     def __repr__(self):
         return '<Supply {}>'.format(self.id)
@@ -67,7 +65,7 @@ class Loader(db.Model):
     items_requested=db.Column(db.String(100), index=True,unique=True)         
     quantity=db.Column(db.String, index=True,unique=True)
     recepient=db.Column(db.String(20), index=True,unique=True)            
-    pickup_location=db.Column(db.String(20), index=True,unique=True) 
+    droppoff_location=db.Column(db.String(20), index=True,unique=True) 
     destination=db.Column(db.String(20), index=True,unique=True)
     transportation=db.Column(db.String(20), index=True,unique=True)      
     cost=db.Column(db.String(100), index=True,unique=True)

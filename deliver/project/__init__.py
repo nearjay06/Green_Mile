@@ -44,6 +44,7 @@ class RecepientModelView(ModelView):
         return current_user.is_authenticated and (current_user.role == 'recepient' or current_user.role == 'admin')
 
 class UserView(ModelView):
+    column_exclude_list = ['password_hash']
     def is_accessible(self):
         return current_user.is_authenticated and current_user.role == 'admin'
     
