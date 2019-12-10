@@ -1,0 +1,78 @@
+{% extends "base.html" %} 
+{% block content %} 
+
+
+<div class="recep">
+ <table> 
+      {% for item in items %}
+       
+    <tr>
+    <th>{{item.id}}</th>         
+    <th>{{item.date}}</th>
+    <th>{{item.item}}</th>
+    <th>{{item.quantity}}</th>
+    <th>{{item.recepient}}</th>
+    <th>{{item.recepient_email}}</th>
+    <th>{{item.recepient_phone}}</th>
+    <th>{{item.duration_of_delivery}}</th>
+    <th>{{item.pickup_location}} </th>
+    <th>{{item.droppoff_location}}</th>
+    <th>{{item.destination}}</th>
+    <th>{{item.transport_mode}} </th>   
+    <th>{{item.cost}}</th>
+    <th>{{item.delivery_status}}</th>
+    </tr>
+
+    <tr>
+          <td>1</td>
+          <td>5/12/2019</td>
+          <td>5 sacks of rice</td>
+          <td>50kgs</td>
+          <td>James</td>
+          <td>james@gmail.com</td>
+          <td>+256 0782 123 456</td>
+          <td>2 hours</td>
+          <td>Nakawa</td>
+          <td>Kireka</td>
+          <td>Lugazi</td>
+          <td>Lorry</td>
+          <td>100,000 UGX</td>
+          <td>In transit</td>
+    </tr>
+    
+    <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+    </tr>
+
+    {% endfor %}
+
+      </table>
+      </div>
+      
+
+                {% with messages=get_flashed_messages()%}
+                {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+        
+               </ul>
+                {% endif %}
+                {% endwith %}
+                
+                 
+        {% endblock %}
+     
+
+
+
+
+
+
+
+
+
+

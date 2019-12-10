@@ -8,7 +8,6 @@ from sqlalchemy import event
 from flask_bcrypt import generate_password_hash
  
 
-
 class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(20), index=True,unique=True)
@@ -16,6 +15,7 @@ class User(UserMixin,db.Model):
     role = db.Column(db.String(20), index=True, unique=False)
     password_hash = db.Column(db.String(128))
     isAdmin = db.Column(db.Boolean, default = False) 
+    packages=db.relationship('Package',backref='package_creator',lazy = True)
     
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -23,9 +23,7 @@ class User(UserMixin,db.Model):
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
-    # def check_password(self,password):
-    #     return check_password_hash(self.password_hash, password)
-
+    
     def check_password(self,password):
         return self.password_hash
 
@@ -45,50 +43,34 @@ def hash_user_password(target, value, oldvalue, initiator):
         return bcrypt.generate_password_hash(value)
     return value
 
-class Supplier(db.Model):
+
+class Package(db.Model):
     id= db.Column(db.Integer, primary_key=True, autoincrement=True)
     date=db.Column(db.DateTime, index=True,unique=True,default=datetime.today)
     item=db.Column(db.String(100), index=True,unique=True)
-    recepient=db.Column(db.String(20), index=True,unique=True)       
-    dropoff_location=db.Column(db.String(20), index=True,unique=True)         
-    destination=db.Column(db.String(20), index=True,unique=True)         
-    delivery_status=db.Column(db.String(20), index=True,unique=True)         
-       
-
-    def __repr__(self):
-        return '<Supply {}>'.format(self.id)
-
-    
-class Loader(db.Model):
-    id= db.Column(db.Integer, primary_key=True, autoincrement=True)
-    date=db.Column(db.DateTime, index=True,unique=True,default=datetime.today)
-    items_requested=db.Column(db.String(100), index=True,unique=True)         
     quantity=db.Column(db.String, index=True,unique=True)
-    recepient=db.Column(db.String(20), index=True,unique=True)            
-    droppoff_location=db.Column(db.String(20), index=True,unique=True) 
-    destination=db.Column(db.String(20), index=True,unique=True)
-    transportation=db.Column(db.String(20), index=True,unique=True)      
-    cost=db.Column(db.String(100), index=True,unique=True)
-
-
-    def __repr__(self):
-        return '<Load {}>'.format(self.id)
-
-class Recepient(db.Model):
-    id= db.Column(db.Integer, primary_key=True, autoincrement=True)
-    date=db.Column(db.DateTime, index=True,unique=True,default=datetime.today)
+    recepient=db.Column(db.String(20), index=True,unique=True)
+    recepient_email=db.Column(db.String(100), index=True,unique=True)
+    recepient_phone=db.Column(db.String(20), index=True,unique=True)
     duration_of_delivery=db.Column(db.String(20), index=True,unique=True)
-    items_requested=db.Column(db.String(100), index=True,unique=True)
     pickup_location=db.Column(db.String(20), index=True,unique=True) 
+    droppoff_location=db.Column(db.String(20), index=True,unique=True)
     destination=db.Column(db.String(20), index=True,unique=True)
+    transport_mode=db.Column(db.String(20), index=True,unique=True)      
+    cost=db.Column(db.String(100), index=True,unique=True)
+    delivery_status=db.Column(db.String(20), index=True,unique=True)
+    user_id= db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)      
+
 
     def __repr__(self):
-        return '<Receive {}>'.format(self.id)
+        return '<Package {}>'.format(self.id)
 
 
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
+
 
 
 

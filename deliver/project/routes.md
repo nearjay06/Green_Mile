@@ -17,14 +17,6 @@ database_connection = DatabaseConnection()
 
 
 
-
-
-
-
-
-
-
-
  
 @app.route('/hello') 
 def hello():
@@ -225,7 +217,68 @@ def recepients():
         return render_template('recepients.html', recepients=recepients,title='Recepients') 
     except Exception as e:
         return (str(e))
+# class Suppliers(db.Model):
+#     id= db.Column(db.Integer, primary_key=True, autoincrement=True)
+#     date=db.Column(db.DateTime, index=True,unique=True,default=datetime.today)
+#     item=db.Column(db.String(100), index=True,unique=True)
+#     recepient=db.Column(db.String(20), index=True,unique=True)
+#     recepient_email=db.Column(db.String(100), index=True,unique=True)
+#     recepient_phone=db.Column(db.String(20), index=True,unique=True)
+#     pickup_location=db.Column(db.String(50), index=True,unique=True)        
+#     dropoff_location=db.Column(db.String(20), index=True,unique=True)         
+#     destination=db.Column(db.String(20), index=True,unique=True)         
+#     delivery_status=db.Column(db.String(20), index=True,unique=True)         
+       
 
-
+#     def __repr__(self):
+#         return '<Supply {}>'.format(self.id)
 
     
+# class Loaders(db.Model):
+#     id= db.Column(db.Integer, primary_key=True, autoincrement=True)
+#     date=db.Column(db.DateTime, index=True,unique=True,default=datetime.today)
+#     items_requested=db.Column(db.String(100), index=True,unique=True)         
+#     quantity=db.Column(db.String, index=True,unique=True)
+#     recepient=db.Column(db.String(20), index=True,unique=True)
+#     recepient_email=db.Column(db.String(100), index=True,unique=True)
+#     recepient_phone=db.Column(db.String(20), index=True,unique=True)
+#     pickup_location=db.Column(db.String(20), index=True,unique=True)            
+#     droppoff_location=db.Column(db.String(20), index=True,unique=True) 
+#     destination=db.Column(db.String(20), index=True,unique=True)
+#     transportation=db.Column(db.String(20), index=True,unique=True)      
+#     cost=db.Column(db.String(100), index=True,unique=True)
+
+
+#     def __repr__(self):
+#         return '<Load {}>'.format(self.id)
+
+# class Recepients(db.Model):
+#     id= db.Column(db.Integer, primary_key=True, autoincrement=True)
+#     date=db.Column(db.DateTime, index=True,unique=True,default=datetime.today)
+#     recepient=recepient=db.Column(db.String(20), index=True,unique=True)
+#     recepient_email=db.Column(db.String(100), index=True,unique=True)
+#     recepient_phone=db.Column(db.String(20), index=True,unique=True)
+#     duration_of_delivery=db.Column(db.String(20), index=True,unique=True)
+#     items_requested=db.Column(db.String(100), index=True,unique=True)
+#     pickup_location=db.Column(db.String(20), index=True,unique=True) 
+#     destination=db.Column(db.String(20), index=True,unique=True)
+
+#     def __repr__(self):
+#         return '<Receive {}>'.format(self.id)
+
+# admin.add_view(LoaderModelView(Loaders, db.session))
+# admin.add_view(SupplierModelView(Suppliers, db.session))
+# admin.add_view(RecepientModelView(Recepients, db.session))
+
+ # if current_user.role == 'Admin':
+    #     can_create = True
+    #     can_delete = True
+    #     can_update = True
+    # elif current_user.role == 'Supplier':
+    #     can_create = True
+    #     can_delete = True
+    #     can_update = True
+    # elif current_user.role == 'Loader':
+    #     can_create = False
+    #     can_delete = False
+    #     can_update = False   
